@@ -4,15 +4,19 @@ class C_Button extends Component {
     this.className = "C_Button";
     this.state.setPropiety("width", width);
     this.state.setPropiety("height", height);
+    this.display = new Display({ width, height });
     this.collider = new RectCollider(this.pos, width, height);
 
-    this.state.addUpdateFuncs(
+    this.display.background(new Color(255, 255, 0, 255));
+  }
+  initState() {
+    /* this.state.addUpdateFuncs(
       "width",
       (value) => (this.collider.width = value)
     );
     this.state.addUpdateFuncs(
       "height",
       (value) => (this.collider.height = value)
-    );
+    ); */
   }
 }

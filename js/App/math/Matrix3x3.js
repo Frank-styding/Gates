@@ -22,7 +22,6 @@ class Matrix3x3 {
   }
 
   mul(m) {
-    console.log(m);
     this.data = Matrix3x3.mul(this, m).data;
     return this;
   }

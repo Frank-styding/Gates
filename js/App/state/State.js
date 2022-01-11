@@ -13,7 +13,7 @@ class State {
     }
   }
   addUpdateFuncs(name, func) {
-    if (this.updateFuncs[name] != undefined) {
+    if (this.updateFuncs[name] == undefined) {
       this.updateFuncs[name] = [];
     }
     this.updateFuncs[name].push(func);

@@ -1,10 +1,18 @@
 class Display {
-  constructor(canvas, width, height) {
-    this.canvas = canvas;
-    this.canvas.width = width;
-    this.canvas.height = height;
-    this.width = width;
-    this.height = height;
+  constructor({ canvas, width, height } = {}) {
+    if (canvas != undefined) {
+      this.canvas = canvas;
+    } else {
+      this.canvas = document.createElement("canvas");
+    }
+    if (width != undefined) {
+      this.canvas.width = width;
+    }
+    if (height != undefined) {
+      this.canvas.height = height;
+    }
+    this.width = this.canvas.width;
+    this.height = this.canvas.height;
     this.ctx = this.canvas.getContext("2d");
   }
   clear() {
@@ -18,6 +26,20 @@ class Display {
     this.ctx.save();
     this.ctx.font = font;
     this.ctx.fillText(text, x, y);
+    this.ctx.restore();
+  }
+  renderComponent(component) {
+    this.ctx.save();
+    const data = component.transform.getTransform().data;
+    this.ctx.transform(data[0], data[1], data[3], data[4], data[2], data[5]);
+    const dislpay = component.display;
+    if (dislpay) {
+      this.ctx.drawImage(
+        dislpay.canvas,
+        -dislpay.width / 2,
+        -dislpay.height / 2
+      );
+    }
     this.ctx.restore();
   }
   renderCollider(object, strokeColor) {
@@ -57,6 +79,7 @@ class Display {
           this.ctx.stroke();
           break;
       }
+      this.ctx.restore();
     }
   }
 }
