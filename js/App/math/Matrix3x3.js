@@ -33,10 +33,10 @@ class Matrix3x3 {
     return this;
   }
 
-  mulByVector(v) {
+  mulByVector(v, z = 1) {
     return new Vector2(
-      this.data[0] * v.x + this.data[1] * v.y + this.data[2],
-      this.data[3] * v.x + this.data[4] * v.y + this.data[5]
+      this.data[0] * v.x + this.data[1] * v.y + this.data[2] * z,
+      this.data[3] * v.x + this.data[4] * v.y + this.data[5] * z
     );
   }
   getTranslation() {

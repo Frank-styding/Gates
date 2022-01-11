@@ -14,12 +14,26 @@ button._update();
 button2._update();
 //console.log(button);
 
+button.state.setPropiety("width", () => 300);
+button.state.setPropiety("height", () => 200);
+button.state.setPropiety("color", (color) => {
+  color.b = 255;
+});
 var lastCalledTime;
 var fps;
 
+canvas.onmousemove = (e) => {
+  if (button2.collider.mouseIsInside(e.offsetX, e.offsetY)) {
+    console.log("hola");
+  }
+};
+
 function loop() {
-  /*   button.transform.model.rotate(10);
-  button2.transform.model.rotate(15); */
+  // button.transform.model.rotate(10);
+  //button2.transform.model.rotate(1);
+  button2.state.setPropiety("transform", (transform) => {
+    transform.model.rotate(1);
+  });
   display.clear();
   button._update();
   button2._update();
@@ -37,7 +51,7 @@ function loop() {
     lastCalledTime = Date.now();
     fps = 1 / delta;
   }
-  console.log(fps);
+  //console.log(fps);
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);

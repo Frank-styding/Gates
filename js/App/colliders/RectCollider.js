@@ -10,11 +10,13 @@ class RectCollider extends Collider {
     this.height = height;
   }
   mouseIsInside(x, y) {
+    let v = new Vector2(x - this.pos.x, y - this.pos.y);
+    v = this.transform.model.mulByVector(v, 0);
     return (
-      this.pos.x - this.width / 2 <= x &&
-      this.pos.x + this.width / 2 >= x &&
-      this.pos.y - this.height / 2 <= y &&
-      this.pos.y + this.height / 2 >= y
+      -this.width / 2 <= v.x &&
+      v.x <= this.width / 2 &&
+      -this.height / 2 <= v.y &&
+      v.y <= this.height / 2
     );
   }
 }

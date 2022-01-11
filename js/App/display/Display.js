@@ -15,6 +15,12 @@ class Display {
     this.height = this.canvas.height;
     this.ctx = this.canvas.getContext("2d");
   }
+  setDim(width, height) {
+    this.ctx.canvas.width = width;
+    this.ctx.canvas.height = height;
+    this.width = width;
+    this.height = height;
+  }
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
