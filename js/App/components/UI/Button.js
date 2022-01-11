@@ -1,5 +1,5 @@
 class C_Button extends Component {
-  constructor(width, height) {
+  constructor(width, height, color) {
     super();
     this.className = "C_Button";
     this.state.setPropiety("width", width);
@@ -7,7 +7,7 @@ class C_Button extends Component {
     this.display = new Display({ width, height });
     this.collider = new RectCollider(this.pos, width, height);
 
-    this.display.background(new Color(255, 255, 0, 255));
+    this.display.background(color);
   }
   initState() {
     /* this.state.addUpdateFuncs(
