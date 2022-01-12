@@ -34,7 +34,6 @@ class State {
     this.udpateFuncs.push(func);
   }
   equal(a, b) {
-    console.log(a, b);
     if (typeof a == "object" && typeof b == "object") {
       const keys1 = Object.keys(a);
       const keys2 = Object.keys(b);

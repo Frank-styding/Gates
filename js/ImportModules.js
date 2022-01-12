@@ -2,6 +2,10 @@ function addScript(src) {
   let script = document.createElement("script");
   script.src = src;
   document.body.appendChild(script);
+  let j = 0;
+  for (let i = 1; i < 10000; i++) {
+    j *= i;
+  }
 }
 
 function addScripstByDirectory(directory, path) {
@@ -21,8 +25,8 @@ function addScripstByDirectory(directory, path) {
       }
     }
   };
-  if (directory.firstSubDirectory != undefined) {
-    if (directory.firstSubDirectory) {
+  if (directory.firstFiles != undefined) {
+    if (directory.firstFiles) {
       files();
       subDirectory();
     }

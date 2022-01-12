@@ -8,8 +8,9 @@ class C_Button extends Component {
     this.display = new Display({ width, height });
     this.collider = new RectCollider(this.pos, width, height);
     this.collider.setTransform(this.transform);
-    this.display.background(color);
     this.color = color;
+    this.text = "hola";
+    this.renderDisplay();
     this.initState();
   }
   initState() {
@@ -27,5 +28,12 @@ class C_Button extends Component {
   }
   renderDisplay() {
     this.display.background(this.color);
+    this.display.text(
+      this.state.getPropiety("width") / 2,
+      this.state.getPropiety("height") / 2,
+      this.text,
+      "20px Roboto",
+      new Color(255, 255, 255, 255)
+    );
   }
 }

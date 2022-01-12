@@ -28,9 +28,12 @@ class Display {
     this.ctx.fillStyle = color.toStyleCanvas();
     this.ctx.fillRect(0, 0, this.width, this.height);
   }
-  text(x, y, text, font) {
+  text(x, y, text, font, color) {
     this.ctx.save();
+    this.ctx.textAlign = "center";
+    this.ctx.textBaseline = "middle";
     this.ctx.font = font;
+    this.ctx.fillStyle = color.toStyleCanvas();
     this.ctx.fillText(text, x, y);
     this.ctx.restore();
   }

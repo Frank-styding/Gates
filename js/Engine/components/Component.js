@@ -18,6 +18,22 @@ class Component {
   initState() {}
   renderDisplay() {}
 
+  mouseDown() {
+    console.log("mouse abajo");
+  }
+  mouseUp() {
+    console.log("mosue arriba");
+  }
+  mouseMove() {
+    console.log("moverse");
+  }
+  mouseOver() {
+    console.log("adentro");
+  }
+  mouseLeave() {
+    console.log("salir");
+  }
+
   addChlid(child) {
     child.parent = this;
     this.chlids.push(child);

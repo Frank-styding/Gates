@@ -8,6 +8,11 @@ let display = new Display({
 
 let button = new C_Button(200, 200, new Color(255, 0, 0, 255));
 let button2 = new C_Button(20, 100, new Color(255, 255, 0, 255));
+
+let controller = new Controller(canvas);
+controller.mouse.setMouseInteracion(button);
+controller.mouse.setMouseInteracion(button2);
+
 button.transform.model.translate(500, 500).rotate(45);
 button2.transform.model.translate(300, 300);
 button._update();
@@ -22,17 +27,11 @@ button.state.setPropiety("color", (color) => {
 var lastCalledTime;
 var fps;
 
-canvas.onmousemove = (e) => {
-  if (button2.collider.mouseIsInside(e.offsetX, e.offsetY)) {
-    console.log("hola");
-  }
-};
-
 function loop() {
   // button.transform.model.rotate(10);
   //button2.transform.model.rotate(1);
   button2.state.setPropiety("transform", (transform) => {
-    transform.model.rotate(1);
+    transform.model.rotate(4);
   });
   display.clear();
   button._update();
@@ -51,7 +50,7 @@ function loop() {
     lastCalledTime = Date.now();
     fps = 1 / delta;
   }
-  //console.log(fps);
+  ///console.log(fps);
   requestAnimationFrame(loop);
 }
 requestAnimationFrame(loop);
