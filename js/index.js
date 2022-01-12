@@ -13,11 +13,11 @@ button.addChlid(circle);
 
 controller.mouse.setMouseInteracion(button);
 button.state.setPropiety("transform", (transform) => {
-  transform.model.translate(500, 500).rotate(12);
+  transform.model.translate(200, 200).rotate(12);
 });
 
 circle.state.setPropiety("transform", (transform) => {
-  transform.model.translate(20, 20).rotate(90);
+  transform.model.translate(20, 20)
   console.log(circle);
 });
 
@@ -35,13 +35,15 @@ function loop() {
   button.state.setPropiety("transform", (transform) => {
     transform.model.rotate(1);
   });
+
   display.clear();
   display.background(new Color(0, 0, 0, 255));
   button.update();
+  circle.update()
 
   display.renderComponent(button);
-  display.renderCollider(button, new Color(255, 255, 0, 255));
-  //display.circle(circle.pos.x, circle.pos.y, 4, new Color(255, 255, 255, 255));
+  display.renderCollider(button, new Color(255, 0, 0, 255));
+  display.circle(circle.pos.x, circle.pos.y, 4, new Color(255,0, 0, 255));
 
   if (!lastCalledTime) {
     lastCalledTime = Date.now();

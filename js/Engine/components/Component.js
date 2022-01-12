@@ -10,8 +10,9 @@ class Component {
     this.parent = undefined;
 
     this.state.setPropiety("transform", () => this.transform);
-    this.state.addUpdatePropietyFuncs("transform", () => {
+    this.state.addUpdatePropietyFuncs("transform", () => {      
       this.pos.clone(this.transform.getTransform().getTranslation());
+
     });
     this.pos.clone(this.transform.getTransform().getTranslation());
   }
@@ -28,10 +29,11 @@ class Component {
   #update() {}
 
   update() {
+    this.pos.clone(this.transform.getTransform().getTranslation());
     for (let child of this.childs) {
       child.update();
       if (this.display != undefined) {
-        this.display.renderComponent(child, true);
+//        this.display.renderComponent(child, true);
       }
     }
     this.#update();

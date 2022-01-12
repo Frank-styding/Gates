@@ -46,14 +46,15 @@ class Display {
   }
   renderComponent(component, onlyModel = false) {
     this.ctx.save();
-    const data = onlyModel
-      ? component.transform.getRelativeTransform().data
-      : component.transform.getTransform().data;
+    let data = component.transform.model.data;
 
-    onlyModel
+/*     onlyModel
       ? this.ctx.transform(1, 0, 0, 1, this.width / 2, this.height / 2)
-      : 0;
-    this.ctx.transform(data[0], data[1], data[3], data[4], data[2], data[5]);
+      : 0; */
+    this.ctx.transform(
+      data[0], data[3], 
+      data[1], data[4], 
+      data[2], data[5]);
     const dislpay = component.display;
     if (dislpay) {
       this.ctx.drawImage(
@@ -62,15 +63,19 @@ class Display {
         -dislpay.height / 2
       );
     }
+    for (const child of component.childs) {
+      this.renderComponent(child,true);
+      
+    }
     this.ctx.restore();
-    /* for (const child of component.childs) {
-      this.renderComponent(child);
-    } */
   }
   renderCollider(component, strokeColor) {
     this.ctx.save();
-    const data = component.transform.getTransform().data;
-    this.ctx.transform(data[0], data[1], data[3], data[4], data[2], data[5]);
+    const data = component.transform.model.data;
+    this.ctx.transform(
+      data[0], data[3],
+       data[1], data[4],
+        data[2], data[5]);
     this.ctx.strokeStyle = strokeColor.toStyleCanvas();
     const collider = component.collider;
     if (collider) {
@@ -104,10 +109,10 @@ class Display {
           this.ctx.stroke();
           break;
       }
-      this.ctx.restore();
       for (const child of component.childs) {
         this.renderCollider(child, strokeColor);
       }
+      this.ctx.restore();
     }
   }
 }
