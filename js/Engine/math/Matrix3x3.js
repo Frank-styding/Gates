@@ -20,6 +20,12 @@ class Matrix3x3 {
   translate(x, y) {
     return this.mul(new Matrix3x3([1, 0, x, 0, 1, y, 0, 0, 1]));
   }
+  sub(m) {
+    let d = this.data.slice();
+    let d1 = m.data.slice();
+    this.data = new Array(9).fill(0).map((item, idx) => d[idx] - d1[idx]);
+    return this;
+  }
 
   mul(m) {
     this.data = Matrix3x3.mul(this, m).data;
@@ -41,6 +47,14 @@ class Matrix3x3 {
   }
   getTranslation() {
     return new Vector2(this.data[2], this.data[5]);
+  }
+  setTranslation(v) {
+    this.data[2] = v.x;
+    this.data[5] = v.y;
+    return this;
+  }
+  copy() {
+    return new Matrix3x3(this.data.slice());
   }
   static mul(m, m1) {
     let d = new Array(9).fill(0);

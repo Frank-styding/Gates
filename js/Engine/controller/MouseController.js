@@ -50,7 +50,7 @@ class MouseController {
           return aux;
         }
       }
-      if (component.collider) {
+      if (component.collider != undefined) {
         if (component.collider.mouseIsInside(x, y)) {
           return component;
         }

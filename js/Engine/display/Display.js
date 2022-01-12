@@ -37,9 +37,22 @@ class Display {
     this.ctx.fillText(text, x, y);
     this.ctx.restore();
   }
-  renderComponent(component) {
+  circle(x, y, r, color) {
+    this.ctx.beginPath();
+    this.ctx.fillStyle = color.toStyleCanvas();
+    this.ctx.arc(x, y, r, 0, Math.PI * 2);
+    this.ctx.closePath();
+    this.ctx.fill();
+  }
+  renderComponent(component, onlyModel = false) {
     this.ctx.save();
-    const data = component.transform.getTransform().data;
+    const data = onlyModel
+      ? component.transform.getRelativeTransform().data
+      : component.transform.getTransform().data;
+
+    onlyModel
+      ? this.ctx.transform(1, 0, 0, 1, this.width / 2, this.height / 2)
+      : 0;
     this.ctx.transform(data[0], data[1], data[3], data[4], data[2], data[5]);
     const dislpay = component.display;
     if (dislpay) {
@@ -50,13 +63,16 @@ class Display {
       );
     }
     this.ctx.restore();
+    /* for (const child of component.childs) {
+      this.renderComponent(child);
+    } */
   }
-  renderCollider(object, strokeColor) {
+  renderCollider(component, strokeColor) {
     this.ctx.save();
-    const data = object.transform.getTransform().data;
+    const data = component.transform.getTransform().data;
     this.ctx.transform(data[0], data[1], data[3], data[4], data[2], data[5]);
     this.ctx.strokeStyle = strokeColor.toStyleCanvas();
-    const collider = object.collider;
+    const collider = component.collider;
     if (collider) {
       switch (collider.className) {
         case "CircleCollider":
@@ -89,6 +105,9 @@ class Display {
           break;
       }
       this.ctx.restore();
+      for (const child of component.childs) {
+        this.renderCollider(child, strokeColor);
+      }
     }
   }
 }

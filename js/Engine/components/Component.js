@@ -13,33 +13,35 @@ class Component {
     this.state.addUpdatePropietyFuncs("transform", () => {
       this.pos.clone(this.transform.getTransform().getTranslation());
     });
+    this.pos.clone(this.transform.getTransform().getTranslation());
   }
 
-  initState() {}
-  renderDisplay() {}
+  //mouse
+  mouseDown() {}
+  mouseUp() {}
+  mouseMove() {}
+  mouseOver() {}
+  mouseLeave() {}
 
-  mouseDown() {
-    console.log("mouse abajo");
-  }
-  mouseUp() {
-    console.log("mosue arriba");
-  }
-  mouseMove() {
-    console.log("moverse");
-  }
-  mouseOver() {
-    console.log("adentro");
-  }
-  mouseLeave() {
-    console.log("salir");
+  #initState() {}
+  #render() {}
+  #update() {}
+
+  update() {
+    for (let child of this.childs) {
+      child.update();
+      if (this.display != undefined) {
+        this.display.renderComponent(child, true);
+      }
+    }
+    this.#update();
   }
 
   addChlid(child) {
     child.parent = this;
-    this.chlids.push(child);
+    child.state.setPropiety("transform", (transform) => {
+      transform.setParentTransform(this.transform);
+    });
+    this.childs.push(child);
   }
-  _update() {
-    this.pos.clone(this.transform.getTransform().getTranslation());
-  }
-  udpate() {}
 }

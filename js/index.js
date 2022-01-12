@@ -6,41 +6,42 @@ let display = new Display({
   height: innerHeight,
 });
 
-let button = new C_Button(200, 200, new Color(255, 0, 0, 255));
-let button2 = new C_Button(20, 100, new Color(255, 255, 0, 255));
-
 let controller = new Controller(canvas);
+let button = new C_Button(200, 200, new Color(255, 0, 0, 255), "hla");
+let circle = new C_Button(20, 20, new Color(255, 255, 0, 255), "A");
+button.addChlid(circle);
+
 controller.mouse.setMouseInteracion(button);
-controller.mouse.setMouseInteracion(button2);
+button.state.setPropiety("transform", (transform) => {
+  transform.model.translate(500, 500).rotate(12);
+});
 
-button.transform.model.translate(500, 500).rotate(45);
-button2.transform.model.translate(300, 300);
-button._update();
-button2._update();
-//console.log(button);
+circle.state.setPropiety("transform", (transform) => {
+  transform.model.translate(20, 20).rotate(90);
+  console.log(circle);
+});
 
-button.state.setPropiety("width", () => 300);
-button.state.setPropiety("height", () => 200);
 button.state.setPropiety("color", (color) => {
+  color.r = 255;
+  color.g = 0;
   color.b = 255;
 });
+button.update();
+
 var lastCalledTime;
 var fps;
 
 function loop() {
-  // button.transform.model.rotate(10);
-  //button2.transform.model.rotate(1);
-  button2.state.setPropiety("transform", (transform) => {
-    transform.model.rotate(4);
+  button.state.setPropiety("transform", (transform) => {
+    transform.model.rotate(1);
   });
   display.clear();
-  button._update();
-  button2._update();
-  display.renderCollider(button, new Color(255, 0, 0, 255));
-  display.renderComponent(button);
+  display.background(new Color(0, 0, 0, 255));
+  button.update();
 
-  display.renderCollider(button2, new Color(255, 0, 0, 255));
-  display.renderComponent(button2);
+  display.renderComponent(button);
+  display.renderCollider(button, new Color(255, 255, 0, 255));
+  //display.circle(circle.pos.x, circle.pos.y, 4, new Color(255, 255, 255, 255));
 
   if (!lastCalledTime) {
     lastCalledTime = Date.now();

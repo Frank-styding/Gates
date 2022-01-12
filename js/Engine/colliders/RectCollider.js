@@ -11,7 +11,7 @@ class RectCollider extends Collider {
   }
   mouseIsInside(x, y) {
     let v = new Vector2(x - this.pos.x, y - this.pos.y);
-    v = this.transform.model.mulByVector(v, 0);
+    v = this.transform.getTransform().mulByVector(v, 0);
     return (
       -this.width / 2 <= v.x &&
       v.x <= this.width / 2 &&

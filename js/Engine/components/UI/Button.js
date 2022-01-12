@@ -1,39 +1,45 @@
 class C_Button extends Component {
-  constructor(width, height, color) {
+  constructor(width, height, color, text) {
     super();
-    this.className = "C_Button";
-    this.state.setPropiety("width", () => width);
-    this.state.setPropiety("height", () => height);
-    this.state.setPropiety("color", () => color);
     this.display = new Display({ width, height });
     this.collider = new RectCollider(this.pos, width, height);
     this.collider.setTransform(this.transform);
-    this.color = color;
-    this.text = "hola";
-    this.renderDisplay();
-    this.initState();
+    this.state.setPropiety("color", () => color);
+    this.state.setPropiety("height", () => height);
+    this.state.setPropiety("width", () => width);
+    this.state.setPropiety("text", () => text);
+    this.#render();
+    this.#initState();
   }
-  initState() {
+  #initState() {
     this.state.addUpdateFuncs((name) => {
-      if (["width", "height", "color"].indexOf(name) == -1) return;
-      this.collider.width = this.state.getPropiety("width");
-      this.collider.height = this.state.getPropiety("height");
+      if (["color", "height", "width"].indexOf(name) == -1) return;
+      this.collider.set(
+        this.state.getPropiety("width"),
+        this.state.getPropiety("height")
+      );
       this.display.setDim(
         this.state.getPropiety("width"),
         this.state.getPropiety("height")
       );
-      this.renderDisplay();
+      this.#render();
     });
-    /* z */
+    this.state.addUpdateFuncs((name) => {
+      if (["text"].indexOf(name) == -1) return;
+      this.#render();
+    });
   }
-  renderDisplay() {
-    this.display.background(this.color);
+  #render() {
+    this.display.background(this.state.getPropiety("color"));
     this.display.text(
       this.state.getPropiety("width") / 2,
       this.state.getPropiety("height") / 2,
-      this.text,
+      this.state.getPropiety("text"),
       "20px Roboto",
-      new Color(255, 255, 255, 255)
+      new Color(0, 0, 0, 255)
     );
+  }
+  mouseOver() {
+    console.log("hola");
   }
 }
