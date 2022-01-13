@@ -58,22 +58,25 @@ class MouseController {
       return undefined;
     };
 
-    let selectedComponent, lastSelectedComponent;
+    let selectedComponent, lastSelectedComponent, event;
     this.events.down.push((e) => {
+      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseDown();
+        selectedComponent.mouseDown(e);
       }
     });
 
     this.events.up.push((e) => {
+      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseUp();
+        selectedComponent.mouseUp(e);
       }
     });
 
     this.events.move.push((e) => {
+      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseMove();
+        selectedComponent.mouseMove(e);
       }
     });
     setInterval(() => {

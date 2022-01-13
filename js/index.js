@@ -7,43 +7,27 @@ let display = new Display({
 });
 
 let controller = new Controller(canvas);
-let button = new C_Button(200, 200, new Color(255, 0, 0, 255), "hla");
-let circle = new C_Button(20, 20, new Color(255, 255, 0, 255), "A");
-button.addChlid(circle);
+let circle = new C_Circle("a", 10);
+let rect = new C_Rect("b", 200, 200);
 
-controller.mouse.setMouseInteracion(button);
-button.state.setPropiety("transform", (transform) => {
-  transform.model.translate(200, 200).rotate(12);
-});
+controller.mouse.setMouseInteracion(circle);
+controller.mouse.setMouseInteracion(rect);
 
-circle.state.setPropiety("transform", (transform) => {
-  transform.model.translate(20, 20)
-  console.log(circle);
+circle.state.setPropiety("transform", (tranform) => {
+  tranform.model.translate(100, 100);
 });
-
-button.state.setPropiety("color", (color) => {
-  color.r = 255;
-  color.g = 0;
-  color.b = 255;
+rect.state.setPropiety("transform", (tranform) => {
+  tranform.model.translate(200, 200);
 });
-button.update();
 
 var lastCalledTime;
 var fps;
 
 function loop() {
-  button.state.setPropiety("transform", (transform) => {
-    transform.model.rotate(1);
-  });
-
-  display.clear();
-  display.background(new Color(0, 0, 0, 255));
-  button.update();
-  circle.update()
-
-  display.renderComponent(button);
-  display.renderCollider(button, new Color(255, 0, 0, 255));
-  display.circle(circle.pos.x, circle.pos.y, 4, new Color(255,0, 0, 255));
+  circle.update();
+  rect.update();
+  display.renderComponent(circle);
+  display.renderComponent(rect);
 
   if (!lastCalledTime) {
     lastCalledTime = Date.now();

@@ -3,42 +3,24 @@ class Matrix3x3 {
     this.data = data;
     this.className = "Matrix3x3";
   }
-
   identity() {
     this.data = [1, 0, 0, 0, 1, 0, 0, 0, 1];
   }
-
   rotate(angle) {
     let cos = Math.cos((angle * Math.PI) / 180);
     let sin = Math.sin((angle * Math.PI) / 180);
     return this.mul(new Matrix3x3([cos, sin, 0, -sin, cos, 0, 0, 0, 1]));
   }
-
   scale(x, y) {
     return this.mul(new Matrix3x3([x, 0, 0, 0, y, 0, 0, 0, 1]));
   }
   translate(x, y) {
     return this.mul(new Matrix3x3([1, 0, x, 0, 1, y, 0, 0, 1]));
   }
-  sub(m) {
-    let d = this.data.slice();
-    let d1 = m.data.slice();
-    this.data = new Array(9).fill(0).map((item, idx) => d[idx] - d1[idx]);
-    return this;
-  }
-
   mul(m) {
     this.data = Matrix3x3.mul(this, m).data;
     return this;
   }
-
-  mul_s(scalar) {
-    for (let i = 0; i < this.data.length; i++) {
-      this.data[i] *= scalar;
-    }
-    return this;
-  }
-
   mulByVector(v, z = 1) {
     return new Vector2(
       this.data[0] * v.x + this.data[1] * v.y + this.data[2] * z,
@@ -48,14 +30,20 @@ class Matrix3x3 {
   getTranslation() {
     return new Vector2(this.data[2], this.data[5]);
   }
-  setTranslation(v) {
-    this.data[2] = v.x;
-    this.data[5] = v.y;
-    return this;
+  setCanvasTransform(ctx) {
+    ctx.transform(
+      this.data[0],
+      this.data[3],
+      this.data[1],
+      this.data[4],
+      this.data[2],
+      this.data[5]
+    );
   }
   copy() {
     return new Matrix3x3(this.data.slice());
   }
+
   static mul(m, m1) {
     let d = new Array(9).fill(0);
     let d1 = m.data;

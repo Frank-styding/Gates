@@ -30,7 +30,17 @@ let DIRECTORY = {
         },
         {
           name: "display",
-          files: ["Color.js", "Display.js"],
+          files: [
+            "Color.js",
+            "Shadow.js",
+            "Pattern.js",
+            "LineStyle.js",
+            "LinearGradient.js",
+            "RadialGradient.js",
+            "Compositing.js",
+            "DisplayStyle.js",
+            "Display.js",
+          ],
         },
         {
           name: "components",
@@ -39,7 +49,13 @@ let DIRECTORY = {
           subDirectories: [
             {
               name: "UI",
-              files: ["Button.js", "Circle.js"],
+              files: [],
+              subDirectories: [
+                {
+                  name: "Shapes",
+                  files: ["Circle.js", "Rect.js"],
+                },
+              ],
             },
           ],
         },

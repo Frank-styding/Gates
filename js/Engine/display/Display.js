@@ -21,40 +21,52 @@ class Display {
     this.width = width;
     this.height = height;
   }
+
   clear() {
     this.ctx.clearRect(0, 0, this.width, this.height);
   }
-  background(color) {
-    this.ctx.fillStyle = color.toStyleCanvas();
+  background(displayStyle) {
+    this.ctx.save();
+    displayStyle.setCanvasStyle(this.ctx);
     this.ctx.fillRect(0, 0, this.width, this.height);
+    this.ctx.restore();
   }
-  text(x, y, text, font, color) {
+  text(x, y, text, font, displayStyle) {
     this.ctx.save();
     this.ctx.textAlign = "center";
     this.ctx.textBaseline = "middle";
     this.ctx.font = font;
-    this.ctx.fillStyle = color.toStyleCanvas();
+    displayStyle.setCanvasStyle(this.ctx);
     this.ctx.fillText(text, x, y);
     this.ctx.restore();
   }
-  circle(x, y, r, color) {
+  circle(x, y, r, displayStyle) {
+    this.ctx.save();
     this.ctx.beginPath();
-    this.ctx.fillStyle = color.toStyleCanvas();
-    this.ctx.arc(x, y, r, 0, Math.PI * 2);
+    displayStyle.setCanvasStyle(this.ctx);
+    this.ctx.arc(x, y, r, 0, Math.PI * 2, true);
     this.ctx.closePath();
     this.ctx.fill();
+    this.ctx.restore();
   }
-  renderComponent(component, onlyModel = false) {
+  rect(x, y, width, height, displayStyle) {
     this.ctx.save();
-    let data = component.transform.model.data;
+    displayStyle.setCanvasStyle(this.ctx);
+    this.ctx.fillRect(x - width / 2, y - height / 2, width, height);
+    this.ctx.restore();
+  }
 
-/*     onlyModel
-      ? this.ctx.transform(1, 0, 0, 1, this.width / 2, this.height / 2)
-      : 0; */
-    this.ctx.transform(
-      data[0], data[3], 
-      data[1], data[4], 
-      data[2], data[5]);
+  renderComponent(component, model = false, center = false) {
+    this.ctx.save();
+
+    if (center) {
+      this.ctx.transform(1, 0, 0, 1, this.width / 2, this.height / 2);
+    }
+    if (model) {
+      component.transform.model.setCanvasTransform(this.ctx);
+    } else {
+      component.transform.getTransform().setCanvasTransform(this.ctx);
+    }
     const dislpay = component.display;
     if (dislpay) {
       this.ctx.drawImage(
@@ -63,20 +75,13 @@ class Display {
         -dislpay.height / 2
       );
     }
-    for (const child of component.childs) {
-      this.renderComponent(child,true);
-      
-    }
     this.ctx.restore();
   }
   renderCollider(component, strokeColor) {
     this.ctx.save();
-    const data = component.transform.model.data;
-    this.ctx.transform(
-      data[0], data[3],
-       data[1], data[4],
-        data[2], data[5]);
+    component.transform.getTransform().setCanvasTransform(this.ctx);
     this.ctx.strokeStyle = strokeColor.toStyleCanvas();
+    this.ctx.lineWidth = 2;
     const collider = component.collider;
     if (collider) {
       switch (collider.className) {
@@ -109,10 +114,10 @@ class Display {
           this.ctx.stroke();
           break;
       }
+      this.ctx.restore();
       for (const child of component.childs) {
         this.renderCollider(child, strokeColor);
       }
-      this.ctx.restore();
     }
   }
 }

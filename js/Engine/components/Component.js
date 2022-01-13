@@ -1,44 +1,65 @@
 class Component {
-  constructor() {
+  static ID = -1;
+  constructor(name) {
     this.className = "Component";
-    this.state = new State();
-    this.pos = new Vector2(0, 0);
+    Component.ID++;
+
+    this.name = name;
+    this.id = Component.ID;
+
+    this.parent = undefined;
+    this.childs = [];
+
     this.transform = new Transform();
+    this.pos = new Vector2(0, 0);
+
+    this.state = new State();
     this.display = undefined;
     this.collider = undefined;
-    this.childs = [];
-    this.parent = undefined;
 
     this.state.setPropiety("transform", () => this.transform);
-    this.state.addUpdatePropietyFuncs("transform", () => {      
+    this.state.addUpdatePropietyFuncs("transform", () => {
       this.pos.clone(this.transform.getTransform().getTranslation());
-
     });
     this.pos.clone(this.transform.getTransform().getTranslation());
   }
 
   //mouse
-  mouseDown() {}
-  mouseUp() {}
-  mouseMove() {}
-  mouseOver() {}
-  mouseLeave() {}
+  _mouseDown() {}
+  mouseDown(e) {
+    this._mouseDown();
+  }
+  _mouseUp() {}
+  mouseUp(e) {
+    this._mouseUp();
+  }
+  _mouseMove() {}
+  mouseMove(e) {
+    this._mouseMove();
+  }
+  _mouseOver() {}
+  mouseOver(e) {
+    this._mouseOver();
+  }
+  _mouseLeave() {}
+  mouseLeave(e) {
+    this._mouseLeave();
+  }
 
-  #initState() {}
-  #render() {}
-  #update() {}
+  _initState() {}
+  _render() {}
+  _update() {}
 
   update() {
     this.pos.clone(this.transform.getTransform().getTranslation());
     for (let child of this.childs) {
       child.update();
       if (this.display != undefined) {
-//        this.display.renderComponent(child, true);
+        this.display.renderComponent(child, true, true);
       }
     }
-    this.#update();
+    this._update();
   }
-
   addChlid(child) {
     child.parent = this;
     child.state.setPropiety("transform", (transform) => {
