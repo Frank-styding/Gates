@@ -2,7 +2,7 @@ class MouseController {
   constructor() {
     this.x = 0;
     this.y = 0;
-    this.mosueIsDown = false;
+    this.mouseIsDown = false;
     this.events = { down: [], move: [], up: [] };
   }
   mouseDownHandler() {
@@ -15,13 +15,13 @@ class MouseController {
     return this.mouseMove.bind(this);
   }
   mouseDown(e) {
-    this.mosueIsDown = true;
+    this.mouseIsDown = true;
     this.x = e.offsetX;
     this.y = e.offsetY;
     this.events.down.forEach((item) => item(this.getContext(e)));
   }
   mouseUp(e) {
-    this.mouseisDown = false;
+    this.mouseIsDown = false;
     this.x = e.offsetX;
     this.y = e.offsetY;
     this.events.up.forEach((item) => item(this.getContext(e)));
@@ -39,11 +39,10 @@ class MouseController {
       mouseEvent: e,
       x: this.x,
       y: this.y,
-      mouseIsDown: this.mosueIsDown,
+      mouseIsDown: this.mouseIsDown,
     };
   }
   setMouseInteracion(component) {
-    
     let findSelection = (component, x, y) => {
       for (let child of component.childs) {
         let aux = findSelection(child, x, y);
@@ -59,32 +58,35 @@ class MouseController {
       return undefined;
     };
 
-    let selectedComponent, lastSelectedComponent;
+    let selectedComponent, lastSelectedComponent, event;
     this.events.down.push((e) => {
+      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseDown();
+        selectedComponent.mouseDown(e);
       }
     });
 
     this.events.up.push((e) => {
+      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseUp();
+        selectedComponent.mouseUp(e);
       }
     });
 
     this.events.move.push((e) => {
+      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseMove();
+        selectedComponent.mouseMove(e);
       }
     });
     setInterval(() => {
       selectedComponent = findSelection(component, this.x, this.y);
       if (selectedComponent != lastSelectedComponent) {
         if (lastSelectedComponent != undefined) {
-          lastSelectedComponent.mouseLeave();
+          lastSelectedComponent.mouseLeave(event);
         }
         if (selectedComponent != undefined) {
-          selectedComponent.mouseOver();
+          selectedComponent.mouseOver(event);
         }
       }
       lastSelectedComponent = selectedComponent;

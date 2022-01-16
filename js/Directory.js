@@ -49,7 +49,7 @@ let DIRECTORY = {
           subDirectories: [
             {
               name: "UI",
-              files: [],
+              files: ["Slider.js"],
             },
           ],
         },

@@ -17,10 +17,10 @@ class Component {
     this.display = undefined;
     this.collider = undefined;
 
-    this.events = {down:[],move:[],up:[],over:[],leave:[]}
+    this.events = { down: [], move: [], up: [], over: [], leave: [] };
 
     this.state.setPropiety("transform", () => this.transform);
-    this.state.setPropiety("style",()=>new DisplayStyle())
+
     this.state.addUpdatePropietyFuncs("transform", () => {
       this.pos.clone(this.transform.getTransform().getTranslation());
     });
@@ -30,31 +30,31 @@ class Component {
   //mouse
   _mouseDown() {}
   mouseDown(e) {
-    this.events.down.forEach(item=>item(e));
+    this.events.down.forEach((item) => item(e));
     this._mouseDown(e);
   }
   _mouseUp() {}
   mouseUp(e) {
-    this.events.up.forEach(item=>item(e));
+    this.events.up.forEach((item) => item(e));
     this._mouseUp(e);
   }
   _mouseMove() {}
   mouseMove(e) {
-    this.events.move.forEach(item=>item(e));
+    this.events.move.forEach((item) => item(e));
     this._mouseMove(e);
   }
   _mouseOver() {}
   mouseOver(e) {
-    this.events.over.forEach(item=>item(e));
+    this.events.over.forEach((item) => item(e));
     this._mouseOver(e);
   }
   _mouseLeave() {}
   mouseLeave(e) {
-    this.events.leave.forEach(item=>item(e));
+    this.events.leave.forEach((item) => item(e));
     this._mouseLeave(e);
   }
 
-  addEvents(name,func){
+  addEvents(name, func) {
     this.events[name].push(func);
   }
 

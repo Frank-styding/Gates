@@ -46,7 +46,7 @@ class Display {
     displayStyle.setCanvasStyle(this.ctx);
     this.ctx.arc(x, y, r, 0, Math.PI * 2, true);
     this.ctx.closePath();
-    displayStyle.fill ? this.ctx.fill(): this.ctx.stroke()
+    displayStyle.fill ? this.ctx.fill() : this.ctx.stroke();
     this.ctx.restore();
   }
   rect(x, y, width, height, displayStyle) {
@@ -55,19 +55,43 @@ class Display {
     this.ctx.fillRect(x - width / 2, y - height / 2, width, height);
     this.ctx.restore();
   }
-  rectBoarderRadius(x,y,width,height,radius,displayStyle){
-    this.ctx.save()
-    displayStyle.setCanvasStyle(this.ctx)
+  rectBoarderRadius(x, y, width, height, radius, displayStyle) {
+    this.ctx.save();
+    displayStyle.setCanvasStyle(this.ctx);
     this.ctx.beginPath();
-    this.ctx.moveTo(x - width/2 + radius , y - height/2);
-    this.ctx.lineTo(x + width/2 - radius , y - height/2);
-    this.ctx.arc(x + width/2 - radius, y - height/2 + radius,radius,Math.PI * 3/2, Math.PI * 2);
-    this.ctx.lineTo(x + width/2 ,y + height/2 - radius);
-    this.ctx.arc(x + width/2 - radius,y + height/2 - radius,radius,0,Math.PI/2);
-    this.ctx.lineTo(x - width/2 + radius, y + height/2);
-    this.ctx.arc(x - width/2 + radius, y + height/2 - radius ,radius,Math.PI/2,Math.PI);
-    this.ctx.lineTo(x - width/2,y -  height/2 + radius);
-    this.ctx.arc( x - width/2 + radius, y - height/2 + radius,radius,Math.PI,Math.PI*3/2)
+    this.ctx.moveTo(x - width / 2 + radius, y - height / 2);
+    this.ctx.lineTo(x + width / 2 - radius, y - height / 2);
+    this.ctx.arc(
+      x + width / 2 - radius,
+      y - height / 2 + radius,
+      radius,
+      (Math.PI * 3) / 2,
+      Math.PI * 2
+    );
+    this.ctx.lineTo(x + width / 2, y + height / 2 - radius);
+    this.ctx.arc(
+      x + width / 2 - radius,
+      y + height / 2 - radius,
+      radius,
+      0,
+      Math.PI / 2
+    );
+    this.ctx.lineTo(x - width / 2 + radius, y + height / 2);
+    this.ctx.arc(
+      x - width / 2 + radius,
+      y + height / 2 - radius,
+      radius,
+      Math.PI / 2,
+      Math.PI
+    );
+    this.ctx.lineTo(x - width / 2, y - height / 2 + radius);
+    this.ctx.arc(
+      x - width / 2 + radius,
+      y - height / 2 + radius,
+      radius,
+      Math.PI,
+      (Math.PI * 3) / 2
+    );
     this.ctx.closePath();
     displayStyle.fill ? this.ctx.fill() : this.ctx.stroke();
     this.ctx.restore();
@@ -97,7 +121,7 @@ class Display {
   renderCollider(component, strokeColor) {
     this.ctx.save();
     component.transform.getTransform().setCanvasTransform(this.ctx);
-    this.ctx.strokeStyle = strokeColor.toStyleCanvas();
+    this.ctx.strokeStyle = strokeColor.toColorCanvas();
     this.ctx.lineWidth = 2;
     const collider = component.collider;
     if (collider) {
