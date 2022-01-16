@@ -43,6 +43,7 @@ class MouseController {
     };
   }
   setMouseInteracion(component) {
+    
     let findSelection = (component, x, y) => {
       for (let child of component.childs) {
         let aux = findSelection(child, x, y);
@@ -58,25 +59,22 @@ class MouseController {
       return undefined;
     };
 
-    let selectedComponent, lastSelectedComponent, event;
+    let selectedComponent, lastSelectedComponent;
     this.events.down.push((e) => {
-      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseDown(e);
+        selectedComponent.mouseDown();
       }
     });
 
     this.events.up.push((e) => {
-      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseUp(e);
+        selectedComponent.mouseUp();
       }
     });
 
     this.events.move.push((e) => {
-      event = e;
       if (selectedComponent != undefined) {
-        selectedComponent.mouseMove(e);
+        selectedComponent.mouseMove();
       }
     });
     setInterval(() => {

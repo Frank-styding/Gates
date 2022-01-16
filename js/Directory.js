@@ -50,12 +50,6 @@ let DIRECTORY = {
             {
               name: "UI",
               files: [],
-              subDirectories: [
-                {
-                  name: "Shapes",
-                  files: ["Circle.js", "Rect.js"],
-                },
-              ],
             },
           ],
         },
