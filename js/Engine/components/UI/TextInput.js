@@ -2,6 +2,7 @@ class TextInput extends Component {
   constructor(name, width, height) {
     super(name);
     this.collider = new RectCollider(this.pos, width, height, 0);
+    this.collider.setTransform(this.transform);
     this.display = new Display({ width, height });
 
     this.state.initPropietiesValues({
@@ -18,7 +19,10 @@ class TextInput extends Component {
           font: `${height}px roboto`,
         }),
       }),
-      lineStyle: new DisplayStyle(),
+      lineStyle: new DisplayStyle({
+        fill: true,
+        color: new Color(255, 0, 0, 255),
+      }),
     });
 
     this._initState();
@@ -36,20 +40,45 @@ class TextInput extends Component {
 
       this._render();
     });
-    this.state.addUpdatePropietyFuncs("value", () => {
+    this.state.addUpdatePropietyFuncs("value", (value) => {
+      console.log(value);
       this._render();
     });
-    this.state.addUpdatePropietyFuncs("idx", () => {
+    this.state.addUpdatePropietyFuncs("idx", (idx) => {
+      const { width, value, textStyle, offsetX } =
+        this.state.getPropietiesValues();
+
+      const valueWidth =
+        getCanvasTextWidth(value.slice(0, idx), textStyle.textStyle.font) -
+        offsetX -
+        width;
+
+      if (valueWidth > 0) {
+        this.state.setPropiety("offsetX", () => offsetX + valueWidth);
+      }
+
+      if (valueWidth < -width) {
+        this.state.setPropiety("offsetX", () => offsetX + (valueWidth + width));
+      }
+
       this._render();
     });
   }
   _render() {
-    const { width, height, style, textStyle, value, idx, lineStyle } =
+    const { width, height, style, textStyle, value, idx, lineStyle, offsetX } =
       this.state.getPropietiesValues();
 
     this.display.clear();
+    this.display.text(-offsetX, height / 2, value, textStyle);
+    this.display.rect(
+      getCanvasTextWidth(value.slice(0, idx), textStyle.textStyle.font) -
+        offsetX,
+      height / 2,
+      2,
+      height,
+      lineStyle
+    );
     this.display.rect(width / 2, height / 2, width, height, style);
-    this.display.text(0, height / 2, value, textStyle);
   }
 
   _keyDown(e) {
@@ -57,15 +86,25 @@ class TextInput extends Component {
     const { value, idx } = this.state.getPropietiesValues();
 
     if (code == 8) {
-      this.state.setPropiety("value", () => {
-        return value.slice(0, idx - 1) + value.slice(idx, value.length);
-      });
-      return;
+      if (idx - 1 >= 0) {
+        this.state.setPropiety("value", () => {
+          let aux = value.slice(0, idx - 1) + value.slice(idx, value.length);
+          this.state.setPropiety("idx", () => idx - 1);
+          return aux;
+        });
+      }
     }
 
     if ((code >= 65 && code <= 90) || code == 32) {
       this.state.setPropiety("value", () => {
-        return value + e.event.key;
+        //return value + e.event.key;
+        let aux =
+          value.slice(0, idx) + e.event.key + value.slice(idx, value.length);
+
+        if (idx + 1 <= aux.length) {
+          this.state.setPropiety("idx", () => idx + 1);
+        }
+        return aux;
       });
     }
 
@@ -81,6 +120,25 @@ class TextInput extends Component {
         this.state.setPropiety("idx", () => idx - 1);
       }
     }
-    //console.log(this.state.getPropiety("idx"));
+  }
+  _mouseDown(e) {
+    const { offsetX, width, value, textStyle } =
+      this.state.getPropietiesValues();
+    const dx = e.x - this.pos.x + width / 2 + offsetX;
+
+    let idx = -1;
+    let size = 0;
+    for (let char of value) {
+      if (size < dx) {
+        size += getCanvasTextWidth(char, textStyle.textStyle.font);
+        idx++;
+      }
+    }
+
+    if (getCanvasTextWidth(value, textStyle.textStyle.font) < dx) {
+      idx++;
+    }
+
+    this.state.setPropiety("idx", () => idx);
   }
 }

@@ -14,6 +14,7 @@ let textInput = new TextInput("nose", 100, 50);
 
 controller.mouse.setMouseInteracion(slider);
 controller.mouse.setMouseInteracion(slider1);
+controller.mouse.setMouseInteracion(textInput);
 controller.keyboard.setKeyBoardInteraction(textInput);
 
 slider.state.setPropiety("transform", (transform) => {
