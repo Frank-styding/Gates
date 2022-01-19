@@ -16,8 +16,21 @@ class Component {
     this.state = new State();
     this.display = undefined;
     this.collider = undefined;
+    this.width = 0;
+    this.height = 0;
 
-    this.events = { down: [], move: [], up: [], over: [], leave: [] };
+    this.selectedByMouse = false;
+
+    this.events = {
+      mouseDown: [],
+      mouseMove: [],
+      mouseUp: [],
+      mouseOver: [],
+      mouseLeave: [],
+      keyDown: [],
+      keyPress: [],
+      keyUp: [],
+    };
 
     this.state.setPropiety("transform", () => this.transform);
 
@@ -30,28 +43,48 @@ class Component {
   //mouse
   _mouseDown() {}
   mouseDown(e) {
-    this.events.down.forEach((item) => item(e));
+    this.events.mouseDown.forEach((item) => item(e));
     this._mouseDown(e);
   }
   _mouseUp() {}
   mouseUp(e) {
-    this.events.up.forEach((item) => item(e));
+    this.events.mouseUp.forEach((item) => item(e));
     this._mouseUp(e);
   }
   _mouseMove() {}
   mouseMove(e) {
-    this.events.move.forEach((item) => item(e));
+    this.events.mouseMove.forEach((item) => item(e));
     this._mouseMove(e);
   }
   _mouseOver() {}
   mouseOver(e) {
-    this.events.over.forEach((item) => item(e));
+    this.selectedByMouse = true;
+    this.events.mouseOver.forEach((item) => item(e));
     this._mouseOver(e);
   }
   _mouseLeave() {}
   mouseLeave(e) {
-    this.events.leave.forEach((item) => item(e));
+    this.selectedByMouse = false;
+    this.events.mouseLeave.forEach((item) => item(e));
     this._mouseLeave(e);
+  }
+
+  _keyDown(e) {}
+  keyDown(e) {
+    this.events.keyDown.forEach((item) => item(e));
+    this._keyDown(e);
+  }
+
+  _keyPress(e) {}
+  keyPress(e) {
+    this.events.keyPress.forEach((item) => item(e));
+    this._keyPress(e);
+  }
+
+  _keyUp(e) {}
+  keyUp(e) {
+    this.events.keyUp.forEach((item) => item(e));
+    this._keyUp(e);
   }
 
   addEvents(name, func) {

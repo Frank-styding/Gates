@@ -4,49 +4,41 @@ class C_Slider extends Component {
     this.display = new Display({ width, height });
     this.collider = new RectCollider(this.pos, width, height, 0);
     this.collider.setTransform(this.transform);
-    this.state.setPropiety(
-      "style",
-      () => new DisplayStyle({ fill: true, color: new Color(255, 0, 255, 255) })
-    );
-    this.state.setPropiety(
-      "indicator-style",
-      () => new DisplayStyle({ fill: true, color: new Color(0, 0, 255, 255) })
-    );
-    this.state.setPropiety("value", () => value);
-    this.state.setPropiety("max-value", () => maxValue);
-    this.state.setPropiety("width", () => width);
-    this.state.setPropiety("height", () => height);
+
+    this.state.initPropietiesValues({
+      value: value,
+      maxValue: maxValue,
+      width: width,
+      height: height,
+      style: new DisplayStyle({
+        fill: true,
+        color: new Color(150, 150, 150, 255),
+      }),
+      indicatorStyle: new DisplayStyle({
+        fill: true,
+        color: new Color(0, 0, 0, 255),
+      }),
+    });
+
     this._initState();
     this._render();
   }
   _initState() {
     this.state.addUpdateFuncs((name) => {
       if (["value", "width", "height"].indexOf(name) == -1) return;
-      this.collider.set(
-        this.state.getPropiety("width"),
-        this.state.getPropiety("height"),
-        0
-      );
-      this.display.setDim(
-        this.state.getPropiety("width"),
-        this.state.getPropiety("height")
-      );
+      const { width, height } = this.state.getPropietiesValues();
+      this.collider.set(width, height, 0);
+      this.display.setDim(width, height);
       this._render();
     });
     this.state.addUpdateFuncs((name) => {
-      if (["value", "max-value"].indexOf(name) == -1) return;
-      console.log(this.state.getPropiety("value"));
+      if (["value", "maxValue"].indexOf(name) == -1) return;
       this._render();
     });
   }
   _render() {
-    const width = this.state.getPropiety("width");
-    const height = this.state.getPropiety("height");
-    const style = this.state.getPropiety("style");
-    const maxValue = this.state.getPropiety("max-value");
-    const value = this.state.getPropiety("value");
-    const indicatorStyle = this.state.getPropiety("indicator-style");
-
+    const { width, height, style, indicatorStyle, value, maxValue } =
+      this.state.getPropietiesValues();
     this.display.clear();
     this.display.rect(width / 2, height / 2, width, height, style);
     this.display.rect(
@@ -58,24 +50,22 @@ class C_Slider extends Component {
     );
   }
   _mouseMove(e) {
-    if (e.mouseIsDown) {
-      const width = this.state.getPropiety("width");
-      const maxValue = this.state.getPropiety("max-value");
-      let value = Math.floor(
-        (e.x - (this.pos.x - width / 2)) / (width / (maxValue + 1))
-      );
-      if (value >= 0 && value <= maxValue) {
-        this.state.setPropiety("value", () => value);
-      }
-    }
+    this.setValueByEvent(e);
   }
   _mouseDown(e) {
+    this.setValueByEvent(e);
+  }
+  setValueByEvent(e) {
     if (e.mouseIsDown) {
-      const width = this.state.getPropiety("width");
-      const maxValue = this.state.getPropiety("max-value");
-      let value = Math.floor(
-        (e.x - (this.pos.x - width / 2)) / (width / (maxValue + 1))
+      const { width, maxValue } = this.state.getPropietiesValues();
+
+      let v = this.transform.model.mulByVector(
+        new Vector2(e.x - this.pos.x, this.pos.y - e.y),
+        0
       );
+
+      let value = Math.floor((v.x + width / 2) / (width / (maxValue + 1)));
+
       if (value >= 0 && value <= maxValue) {
         this.state.setPropiety("value", () => value);
       }

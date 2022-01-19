@@ -8,8 +8,9 @@ class DisplayStyle {
     gradient,
     fill,
     filter,
-  }) {
-    this.fill = fill ?? false;
+    textStyle,
+  } = {}) {
+    this.fill = fill ?? true;
     this.shadow = shadow;
     this.gradient = gradient;
     this.pattern = pattern;
@@ -17,6 +18,7 @@ class DisplayStyle {
     this.lineStyle = lineStyle;
     this.compositing = compositing;
     this.filter = filter;
+    this.textStyle = textStyle;
   }
   setCanvasStyle(ctx) {
     if (this.compositing) {
@@ -24,6 +26,9 @@ class DisplayStyle {
     }
     if (this.filter) {
       ctx.filter = this.filter;
+    }
+    if (this.textStyle) {
+      this.textStyle.setCanvasStyle(ctx);
     }
     if (this.fill) {
       if (this.shadow) {

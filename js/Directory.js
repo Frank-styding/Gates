@@ -4,7 +4,8 @@ let DIRECTORY = {
   subDirectories: [
     {
       name: "Engine",
-      //files: ["index.js"],
+      files: ["Utilities.js"],
+      firstFiles: true,
       subDirectories: [
         {
           name: "math",
@@ -26,7 +27,11 @@ let DIRECTORY = {
         { name: "state", files: ["State.js"] },
         {
           name: "controller",
-          files: ["MouseController.js", "Controller.js"],
+          files: [
+            "KeyboardController.js",
+            "MouseController.js",
+            "Controller.js",
+          ],
         },
         {
           name: "display",
@@ -38,6 +43,7 @@ let DIRECTORY = {
             "LinearGradient.js",
             "RadialGradient.js",
             "Compositing.js",
+            "TextStyle.js",
             "DisplayStyle.js",
             "Display.js",
           ],
@@ -49,7 +55,7 @@ let DIRECTORY = {
           subDirectories: [
             {
               name: "UI",
-              files: ["Slider.js"],
+              files: ["Slider.js", "TextInput.js"],
             },
           ],
         },

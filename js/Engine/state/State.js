@@ -4,8 +4,14 @@ class State {
     this.updatePropietieFuncs = {};
     this.udpateFuncs = [];
   }
+  initPropietiesValues(data) {
+    this.propietiesValues = { ...data, ...this.propietiesValues };
+  }
   getPropiety(name) {
     return this.propietiesValues[name];
+  }
+  getPropietiesValues() {
+    return this.propietiesValues;
   }
   setPropiety(name, value) {
     let lastPropietyValue = this.clone(this.propietiesValues[name]);

@@ -31,13 +31,13 @@ class Display {
     this.ctx.fillRect(0, 0, this.width, this.height);
     this.ctx.restore();
   }
-  text(x, y, text, font, displayStyle) {
+
+  text(x, y, text, displayStyle) {
     this.ctx.save();
-    this.ctx.textAlign = "center";
-    this.ctx.textBaseline = "middle";
-    this.ctx.font = font;
     displayStyle.setCanvasStyle(this.ctx);
-    this.ctx.fillText(text, x, y);
+    displayStyle.fill
+      ? this.ctx.fillText(text, x, y)
+      : this.ctx.strokeText(text, x, y);
     this.ctx.restore();
   }
   circle(x, y, r, displayStyle) {
@@ -52,7 +52,11 @@ class Display {
   rect(x, y, width, height, displayStyle) {
     this.ctx.save();
     displayStyle.setCanvasStyle(this.ctx);
-    this.ctx.fillRect(x - width / 2, y - height / 2, width, height);
+    if (displayStyle.fill) {
+      this.ctx.fillRect(x - width / 2, y - height / 2, width, height);
+    } else {
+      this.ctx.strokeRect(x - width / 2, y - height / 2, width, height);
+    }
     this.ctx.restore();
   }
   rectBoarderRadius(x, y, width, height, radius, displayStyle) {
