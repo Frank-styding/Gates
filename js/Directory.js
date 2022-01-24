@@ -4,8 +4,7 @@ let DIRECTORY = {
   subDirectories: [
     {
       name: "Engine",
-      files: ["Utilities.js"],
-      firstFiles: true,
+
       subDirectories: [
         {
           name: "math",
@@ -19,10 +18,6 @@ let DIRECTORY = {
             "PathCollider.js",
             "RectCollider.js",
           ],
-        },
-        {
-          name: "Thread",
-          files: ["Tread.js"],
         },
         { name: "state", files: ["State.js"] },
         {
@@ -51,19 +46,12 @@ let DIRECTORY = {
         {
           name: "components",
           files: ["Component.js"],
-          firstFiles: true,
-          subDirectories: [
-            {
-              name: "UI",
-              files: ["Slider.js", "TextInput.js"],
-            },
-          ],
         },
       ],
     },
     {
       name: "App",
-      files: [],
+      files: ["App.js"],
     },
   ],
 };

@@ -5,10 +5,10 @@ class Shadow {
     this.x = x;
     this.y = y;
   }
-  setStyleCanvas(ctx) {
-    ctx.shadowColor = this.color.toColorCanvas();
+  setToContext(ctx) {
+    ctx.shadowColor = this.color.toCanvasStyle();
     ctx.shadowBlur = this.blur;
-    ctx.shadowOffsetX = ctx.x;
-    ctx.shadowOffsetY = ctx.y;
+    ctx.shadowOffsetX = this.x;
+    ctx.shadowOffsetY = this.y;
   }
 }

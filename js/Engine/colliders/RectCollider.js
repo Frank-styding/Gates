@@ -1,6 +1,5 @@
 class RectCollider extends Collider {
-  constructor(pos, width, height, borderRadius) {
-    super(pos);
+  constructor(width, height, borderRadius) {
     this.width = width;
     this.height = height;
     this.borderRadius = borderRadius;
@@ -11,24 +10,37 @@ class RectCollider extends Collider {
     this.height = height;
     this.borderRadius = borderRadius;
   }
-  mouseIsInside(x, y) {
+  pointIsInside(x, y) {
     let v = new Vector2(x - this.pos.x, y - this.pos.y);
-    v = this.transform.getTransform().mulByVector(v, 0);
+    if (this.transform) {
+      v = Matrix3x3.mulByVector(v, this.transform.getTransformMatrix(), 0);
+    }
 
-    let insideRect =
-      (-this.width / 2 <= v.x &&
-        v.x <= this.width / 2 &&
-        -this.height / 2 + this.borderRadius <= v.y &&
-        v.y <= this.height / 2 - this.borderRadiu) ||
-      (-this.width / 2 + this.borderRadius <= v.x &&
-        v.x <= this.width / 2 - this.borderRadius &&
-        -this.height / 2 <= v.y &&
-        v.y <= this.height / 2) ||
-      (this.width - v.x) ** 2 + (this.height - v.y) ** 2 <= this.borderRadius ||
-      (-this.width - v.x) ** 2 + (this.height - v.y) ** 2 <= this.borderRadius ||
-      (this.width - v.x) ** 2 + (-this.height - v.y) ** 2 <= this.borderRadius ||
-      (-this.width - v.x) ** 2 + (-this.height - v.y) ** 2 <= this.borderRadius;
+    let widthSubRadius = this.width / 2 - this.borderRadius;
+    let heightSubRadius = this.height / 2 - this.borderRadius;
 
-    return insideRect;
+    let t_l_c = (-widthSubRadius - v.x) ** 2 + (-heightSubRadius - v.y) ** 2;
+
+    let t_r_c = (widthSubRadius - v.x) ** 2 + (-heightSubRadius - v.y) ** 2;
+
+    let b_l_c = (-widthSubRadius - v.x) ** 2 + (heightSubRadius - v.y) ** 2;
+
+    let b_r_c = (widthSubRadius - v.x) ** 2 + (heightSubRadius - v.y) ** 2;
+
+    let inisideCorners = b_l_c || b_r_c || t_l_c || t_r_c;
+
+    let insideRec1 =
+      -widthSubRadius <= v.x &&
+      v.x <= widthSubRadius &&
+      -this.height / 2 <= v.y &&
+      v.y <= this.height / 2;
+
+    let insideRec2 =
+      -this.width / 2 <= v.x &&
+      v.x <= this.width / 2 &&
+      -heightSubRadius <= v.y &&
+      v.y <= heightSubRadius;
+
+    return insideRec1 || insideRec2 || inisideCorners;
   }
 }

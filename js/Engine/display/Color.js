@@ -5,7 +5,7 @@ class Color {
     this.b = b;
     this.a = a;
   }
-  toColorCanvas() {
+  toCanvasStyle() {
     return `rgba(${this.r},${this.g},${this.b},${this.a})`;
   }
 }

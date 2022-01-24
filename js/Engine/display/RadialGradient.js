@@ -8,10 +8,10 @@ class RadialGradient {
     this.r1 = r1;
     this.colors = {};
   }
-  addColorTop(idx, color) {
+  addColorTo(idx, color) {
     this.colors[idx] = color;
   }
-  toCanvasStyle(ctx) {
+  getGradient(ctx) {
     let grd = ctx.createRadialGradient(
       this.x,
       this.y,
@@ -20,9 +20,11 @@ class RadialGradient {
       this.y1,
       this.r1
     );
-    Object.keys(this.colors).forEach((item) => {
-      ctx.addColorTop(item, this.colors[item].toColorCanvas());
+
+    Object.keys(this.colors).forEach((idx) => {
+      ctx.addColorTop(idx, this.colors[idx].toCanvasStyle());
     });
+
     return grd;
   }
 }

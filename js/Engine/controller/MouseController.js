@@ -5,6 +5,7 @@ class MouseController {
     this.mouseIsDown = false;
     this.events = { down: [], move: [], up: [] };
   }
+  //handlers
   mouseDownHandler() {
     return this.mouseDown.bind(this);
   }
@@ -14,23 +15,31 @@ class MouseController {
   mouseMoveHandler() {
     return this.mouseMove.bind(this);
   }
+
   mouseDown(e) {
     this.mouseIsDown = true;
     this.x = e.offsetX;
     this.y = e.offsetY;
-    this.events.down.forEach((item) => item(this.getContext(e)));
+    this.events.down.forEach((item) => {
+      item(this.getContext(e));
+    });
   }
   mouseUp(e) {
     this.mouseIsDown = false;
     this.x = e.offsetX;
     this.y = e.offsetY;
-    this.events.up.forEach((item) => item(this.getContext(e)));
+    this.events.up.forEach((item) => {
+      item(this.getContext(e));
+    });
   }
   mouseMove(e) {
     this.x = e.offsetX;
     this.y = e.offsetY;
-    this.events.move.forEach((item) => item(this.getContext(e)));
+    this.events.move.forEach((item) => {
+      item(this.getContext(e));
+    });
   }
+
   addEvent(name, func) {
     this.events[name].push(func);
   }
@@ -42,7 +51,8 @@ class MouseController {
       mouseIsDown: this.mouseIsDown,
     };
   }
-  setMouseInteracion(component) {
+
+  /* setMouseInteracion(component) {
     let findSelection = (component, x, y) => {
       for (let child of component.childs) {
         let aux = findSelection(child, x, y);
@@ -91,5 +101,5 @@ class MouseController {
       }
       lastSelectedComponent = selectedComponent;
     }, 1);
-  }
+  } */
 }

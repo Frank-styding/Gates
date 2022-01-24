@@ -7,7 +7,7 @@ class CircleCollider extends Collider {
   set(r) {
     this.radius = r;
   }
-  mouseIsInside(x, y) {
+  pointIsInside(x, y) {
     return (this.pos.x - x) ** 2 + (this.pos.y - y) ** 2 <= this.r * this.r;
   }
 }

@@ -4,39 +4,49 @@ class KeyboardController {
     this.preButtonState = {};
     this.events = { down: [], press: [], up: [] };
   }
+  //handler
   keyDownHandler() {
     return this.keyDown.bind(this);
   }
-  keyDown(e) {
-    if (this.buttonState[e.code] != this.buttonState[e.code]) {
-      this.preButtonState[e.code] = this.buttonState[e.code];
-    }
-    this.buttonState[e.code] = true;
-    this.events.down.forEach((item) => item(this.getContext(e)));
-  }
   keyPressHandler() {
-    return this.keyPressHandler.bind(this);
-  }
-  keyPress(e) {
-    if (this.buttonState[e.code] != this.buttonState[e.code]) {
-      this.preButtonState[e.code] = this.buttonState[e.code];
-    }
-    this.buttonState[e.code] = true;
-    this.events.press.forEach((item) => item(this.getContext(e)));
+    return this.keyPress.bind(this);
   }
   keyUpHandler() {
-    return this.keyUpHandler.bind(this);
+    return this.keyUp.bind(this);
+  }
+  //event
+  keyDown(e) {
+    if (this.preButtonState[e.code] != this.buttonState[e.code]) {
+      this.preButtonState[e.code] = this.buttonState[e.code];
+    }
+    this.buttonState[e.code] = true;
+    this.events.down.forEach((func) => {
+      func(this.getContext(e));
+    });
+  }
+  keyPress(e) {
+    if (this.preButtonState[e.code] != this.buttonState[e.code]) {
+      this.preButtonState[e.code] = this.buttonState[e.code];
+    }
+    this.buttonState[e.code] = true;
+    this.events.press.forEach((func) => {
+      func(this.getContext(e));
+    });
   }
   keyUp(e) {
     if (this.buttonState[e.code] != this.buttonState[e.code]) {
       this.preButtonState[e.code] = this.buttonState[e.code];
     }
     this.buttonState[e.code] = false;
-    this.events.up.forEach((item) => item(this.getContext(e)));
+    this.events.up.forEach((func) => {
+      func(this.getContext(e));
+    });
   }
+
   addEvent(type, func) {
     this.events[type].push(func);
   }
+
   getContext(e) {
     return {
       event: e,
@@ -44,7 +54,8 @@ class KeyboardController {
       buttonState: this.buttonState,
     };
   }
-  setKeyBoardInteraction(component) {
+
+  /*  setKeyBoardInteraction(component) {
     let l = [];
 
     let findChidls = (component) => {
@@ -69,5 +80,5 @@ class KeyboardController {
         item.keyUp(e);
       });
     });
-  }
+  } */
 }

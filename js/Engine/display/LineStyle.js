@@ -1,11 +1,11 @@
 class LineStyle {
-  constructor({ lineCap, lineWidth, lineJoin, miterLimit }) {
+  constructor({ lineCap, lineWidth, lineJoin, miterLimmit }) {
     this.lineCap = lineCap ?? "butt";
     this.lineJoin = lineJoin ?? "bevel";
     this.lineWidth = lineWidth ?? 1;
     this.miterLimit = miterLimit ?? 5;
   }
-  setCanvasStyle(ctx) {
+  setToContext(ctx) {
     ctx.lineWidth = this.lineWidth;
     ctx.lineJoin = this.lineJoin;
     ctx.miterLimit = this.miterLimit;

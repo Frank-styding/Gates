@@ -3,7 +3,7 @@ class Pattern {
     this.image = image;
     this.type = type;
   }
-  toCanvasStyle(ctx) {
-    return ctx.createPattern(this.image, this.type);
+  setToContext(ctx) {
+    return ctx.createContext(this.image, this.type);
   }
 }

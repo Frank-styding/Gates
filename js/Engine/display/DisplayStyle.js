@@ -20,33 +20,18 @@ class DisplayStyle {
     this.filter = filter;
     this.textStyle = textStyle;
   }
-  setCanvasStyle(ctx) {
-    if (this.compositing) {
-      this.compositing.setCanvasStyle(ctx);
-    }
-    if (this.filter) {
-      ctx.filter = this.filter;
-    }
-    if (this.textStyle) {
-      this.textStyle.setCanvasStyle(ctx);
-    }
+  setToContext(ctx) {
+    this.compositing ?? this.compositing.setToContext(ctx);
+    this.filter ?? (ctx.filter = this.filter);
+    this.textStyle ?? this.textStyle.setToContext(ctx);
+
     if (this.fill) {
-      if (this.shadow) {
-        this.shadow.setStyleCanvas(ctx);
-      }
-      if (this.pattern) {
-        this.pattern.setStyleCanvas(ctx);
-      }
-      if (this.color) {
-        ctx.fillStyle = this.color.toColorCanvas();
-      }
+      this.shadow ?? this.shadow.setToContext(ctx);
+      this.pattern ?? this.pattern.setToContext(ctx);
+      this.color ?? (ctx.fillStyle = this.color.toCanvasStyle());
     } else {
-      if (this.color) {
-        ctx.strokeStyle = this.color.toColorCanvas();
-      }
-      if (this.lineStyle) {
-        this.lineStyle.setCanvasStyle(ctx);
-      }
+      this.color ?? (ctx.strokeStyle = this.color.toCanvasStyle());
+      this.lineStyle ?? this.lineStyle.setToContext(ctx);
     }
   }
 }

@@ -1,4 +1,4 @@
-let canvas = document.createElement("canvas");
+/* let canvas = document.createElement("canvas");
 document.body.appendChild(canvas);
 let display = new Display({
   canvas: canvas,
@@ -30,9 +30,9 @@ textInput.state.setPropiety("transform", (transform) => {
 });
 
 var lastCalledTime;
-var fps;
+var fps; */
 
-function loop() {
+/* function loop() {
   display.clear();
 
   slider.update();
@@ -43,8 +43,8 @@ function loop() {
   display.renderComponent(slider);
   display.renderComponent(slider1);
   display.renderComponent(textInput);
-
-  /*  display.text(
+ */
+/*  display.text(
     260,
     200,
     slider.state.getPropiety("value"),
@@ -60,7 +60,7 @@ function loop() {
     new DisplayStyle({ fill: true, color: new Color(0, 0, 0, 255) })
   ); */
 
-  if (!lastCalledTime) {
+/*   if (!lastCalledTime) {
     lastCalledTime = Date.now();
     fps = 0;
   } else {
@@ -71,4 +71,4 @@ function loop() {
   ///console.log(fps);
   requestAnimationFrame(loop);
 }
-requestAnimationFrame(loop);
+requestAnimationFrame(loop); */

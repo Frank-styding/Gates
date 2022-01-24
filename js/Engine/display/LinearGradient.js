@@ -9,11 +9,13 @@ class LinearGradient {
   addColorTop(idx, color) {
     this.colors[idx] = color;
   }
-  toCanvasStyle(ctx) {
+  getGradient(ctx) {
     let grd = ctx.createLinearGradient(this.x, this.y, this.x1, this.y1);
-    Object.keys(this.colors).forEach((item) => {
-      ctx.addColorTop(item, this.colors[item].toColorCanvas());
+
+    Object.keys(this.colors).forEach((idx) => {
+      ctx.addColorTo(idx, this.colors[idx].toCanvasStyle());
     });
+
     return grd;
   }
 }

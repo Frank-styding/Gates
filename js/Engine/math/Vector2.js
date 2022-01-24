@@ -9,6 +9,7 @@ class Vector2 {
     this.y = y;
     return this;
   }
+  //vector
   add_v(vector) {
     this.x += vector.x;
     this.y += vector.y;
@@ -29,7 +30,7 @@ class Vector2 {
     this.y /= vector.y;
     return this;
   }
-
+  //scalar
   add_s(scalar) {
     this.x += scalar;
     this.y += scalar;
@@ -50,7 +51,7 @@ class Vector2 {
     this.y /= scalar;
     return this;
   }
-
+  //components
   add(x, y) {
     this.x += x;
     this.y += y;
@@ -71,11 +72,15 @@ class Vector2 {
     this.y /= y;
     return this;
   }
+  //propieties
   lenght() {
     return Math.sqrt(this.x * this.x + this.y * this.y);
   }
   dot(vector) {
     return this.x * vector.x + this.y * vector.y;
+  }
+  copy() {
+    return new Vector2(this.x, this.y);
   }
   clone(vector) {
     this.x = vector.x;

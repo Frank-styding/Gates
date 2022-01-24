@@ -1,43 +1,22 @@
 class State {
-  constructor() {
-    this.propietiesValues = {};
-    this.updatePropietieFuncs = {};
-    this.udpateFuncs = [];
+  constructor(initialValue) {
+    this._value = initialValue;
+    this.funcs = [];
   }
-  initPropietiesValues(data) {
-    this.propietiesValues = { ...data, ...this.propietiesValues };
+  addUpdateFunc(func) {
+    this.funcs.push(func);
   }
-  getPropiety(name) {
-    return this.propietiesValues[name];
-  }
-  getPropietiesValues() {
-    return this.propietiesValues;
-  }
-  setPropiety(name, value) {
-    let lastPropietyValue = this.clone(this.propietiesValues[name]);
-    if (typeof this.propietiesValues[name] == "object") {
-      value(this.propietiesValues[name]);
-    } else {
-      this.propietiesValues[name] = value();
-    }
+  set value(valueFunc) {
+    let value_clone = this.clone(this._value);
+    value_clone = valueFunc(value_clone);
 
-    if (this.equal(this.propietiesValues[name], lastPropietyValue)) return;
-
-    if (this.updatePropietieFuncs[name] != undefined) {
-      this.updatePropietieFuncs[name].forEach((item) => {
-        item(this.propietiesValues[name]);
-      });
+    if (this.equal(this._value, value_clone)) {
+      this._value = value_clone;
+      this.funcs.forEach((func) => func(this._value));
     }
-    this.udpateFuncs.forEach((item) => item(name));
   }
-  addUpdatePropietyFuncs(name, func) {
-    if (this.updatePropietieFuncs[name] == undefined) {
-      this.updatePropietieFuncs[name] = [];
-    }
-    this.updatePropietieFuncs[name].push(func);
-  }
-  addUpdateFuncs(func) {
-    this.udpateFuncs.push(func);
+  get value() {
+    return this._value;
   }
   equal(a, b) {
     if (typeof a == "object" && typeof b == "object") {
@@ -47,7 +26,7 @@ class State {
         return false;
       }
       for (let key of keys1) {
-        if (a[key] !== b[key]) {
+        if (this.equal(a[key], b[key])) {
           return false;
         }
       }
@@ -55,18 +34,18 @@ class State {
     }
     return a == b;
   }
-  clone(a) {
-    if (typeof a == "object") {
-      const keys = Object.keys(a);
+  clone(object) {
+    if (typeof object == "object") {
+      const keys = Object.keys(object);
       let result = {};
       for (let key of keys) {
-        result[key] = this.clone(a[key]);
+        result[key] = this.clone(object[key]);
       }
       return result;
     }
-    if (Array.isArray(a)) {
-      return a.slice();
+    if (Array.isArray(object)) {
+      return object.slice();
     }
-    return a;
+    return object;
   }
 }
