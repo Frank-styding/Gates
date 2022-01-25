@@ -10,8 +10,8 @@ class State {
     let value_clone = this.clone(this._value);
     value_clone = valueFunc(value_clone);
 
-    if (this.equal(this._value, value_clone)) {
-      this._value = value_clone;
+    if (!this.equal(this._value, value_clone)) {
+      this._value = valueFunc(this._value);
       this.funcs.forEach((func) => func(this._value));
     }
   }
@@ -37,7 +37,10 @@ class State {
   clone(object) {
     if (typeof object == "object") {
       const keys = Object.keys(object);
-      let result = {};
+      let result = Object.assign(
+        Object.create(Object.getPrototypeOf(object)),
+        object
+      );
       for (let key of keys) {
         result[key] = this.clone(object[key]);
       }

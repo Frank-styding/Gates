@@ -1,6 +1,6 @@
 class PathCollider extends Collider {
-  constructor(pos, path) {
-    super(pos);
+  constructor( path) {
+    super();
     this.path = path;
     this.className = "PathCollider";
   }

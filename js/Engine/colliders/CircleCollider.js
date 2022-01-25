@@ -1,6 +1,6 @@
 class CircleCollider extends Collider {
-  constructor(pos, r) {
-    super(pos);
+  constructor( r) {
+    super();
     this.r = r;
     this.className = "CircleCollider";
   }

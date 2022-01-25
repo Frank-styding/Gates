@@ -1,6 +1,6 @@
 class Transform {
   constructor() {
-    this.model = new Matrix3x3.M_identity();
+    this.model = Matrix3x3.M_identity();
     this.parentTransform = undefined;
   }
   setParentTransform(transform) {
@@ -15,7 +15,7 @@ class Transform {
     }
     return this.model;
   }
-  copy() {
+  clone() {
     let transform = new Transform();
     transform.model = this.model.copy();
     transform.parentTranform = this.parentTransform
@@ -23,7 +23,7 @@ class Transform {
       : undefined;
     return transform;
   }
-  clone(transform) {
+  copy(transform) {
     this.model = transform.model.copy();
     this.parentTransform = transform.parentTransform.copy();
     return this;

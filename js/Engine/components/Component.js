@@ -1,33 +1,43 @@
 class Component {
   constructor() {
-    this.collider = new Collider();
+    this.display = undefined;
+    this.collider = undefined;
 
     this.transform = new State(new Transform());
-    this.pos = new Vector2();
+    this.pos = new State(new Vector2());
 
     this.childs = [];
     this.parent = undefined;
 
-    this.width = 0;
-    this.height = 0;
-
     this.transform.addUpdateFunc(() => {
-      this.pos.copy(this.transform.value.getTransformMatrix().getTranslation());
+      this.pos.value = (pos) => {
+        //pos.copy(this.transform.value.getTransformMatrix().getTranslation());
+        console.log(pos)
+        /* console.log(this.transform.value.getTransformMatrix())
+        pos.copy(value.getTransformMatrix().getTranslation()); */
+        return pos;
+      };
     });
   }
-  setCollider(collider) {
-    this.collider = collider;
-    this.collider.pos = this.pos;
-    this.collider.transform = this.transform;
-  }
+
+  initUpdateFuncs(){}
   update() {}
   render() {}
 
+  setCollider(collider) {
+    collider.pos = this.pos.value;
+    collider.transform = this.transform.value;
+    this.collider = new State(collider);
+  }
+
   addChild(child) {
     child.parent = this;
-    child.transform.value = (value) => {
-      value.setParentTransform(this.transform);
+    
+    child.transform.value = (transform) => {
+      transform.setParentTransform(this.transform);
+      return transform;
     };
+
     this.childs.push(child);
   }
 }

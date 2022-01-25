@@ -45,7 +45,7 @@ let DIRECTORY = {
         },
         {
           name: "components",
-          files: ["Component.js"],
+          files: ["Component.js", "Rect.js"],
         },
       ],
     },

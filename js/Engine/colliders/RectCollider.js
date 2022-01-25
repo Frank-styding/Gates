@@ -1,5 +1,6 @@
 class RectCollider extends Collider {
   constructor(width, height, borderRadius) {
+    super();
     this.width = width;
     this.height = height;
     this.borderRadius = borderRadius;

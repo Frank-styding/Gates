@@ -79,10 +79,10 @@ class Vector2 {
   dot(vector) {
     return this.x * vector.x + this.y * vector.y;
   }
-  copy() {
+  clone() {
     return new Vector2(this.x, this.y);
   }
-  clone(vector) {
+  copy(vector) {
     this.x = vector.x;
     this.y = vector.y;
     return this;

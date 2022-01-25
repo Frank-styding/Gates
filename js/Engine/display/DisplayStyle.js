@@ -21,17 +21,33 @@ class DisplayStyle {
     this.textStyle = textStyle;
   }
   setToContext(ctx) {
-    this.compositing ?? this.compositing.setToContext(ctx);
-    this.filter ?? (ctx.filter = this.filter);
-    this.textStyle ?? this.textStyle.setToContext(ctx);
+    if (this.compositing) {
+      this.compositing.setToContext(ctx);
+    }
+    if (this.filter) {
+      ctx.filter = this.filter;
+    }
+    if (this.textStyle) {
+      this.textStyle.setToContext(ctx);
+    }
 
     if (this.fill) {
-      this.shadow ?? this.shadow.setToContext(ctx);
-      this.pattern ?? this.pattern.setToContext(ctx);
-      this.color ?? (ctx.fillStyle = this.color.toCanvasStyle());
+      if (this.shadow) {
+        this.shadow.setToContext(ctx);
+      }
+      if (this.pattern) {
+        this.pattern.setToContext(ctx);
+      }
+      if (this.color) {
+        ctx.fillStyle = this.color.toCanvasStyle();
+      }
     } else {
-      this.color ?? (ctx.strokeStyle = this.color.toCanvasStyle());
-      this.lineStyle ?? this.lineStyle.setToContext(ctx);
+      if (this.color) {
+        ctx.strokeStyle = this.color.toCanvasStyle();
+      }
+      if (this.lineStyle) {
+        this.lineStyle.setToContext(ctx);
+      }
     }
   }
 }

@@ -42,10 +42,10 @@ class Matrix3x3 {
     );
   }
 
-  copy() {
+  clone() {
     return new Matrix3x3(this.data.slice());
   }
-  clone(m) {
+  copy(m) {
     this.data = m.data.slice();
     return this;
   }
