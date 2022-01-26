@@ -82,8 +82,9 @@ class Display {
 
   circle(x, y, radius, displayStyle) {
     this.ctx.save();
+    displayStyle.setToContext(this.ctx)
     this.ctx.beginPath();
-    this.ctx.arc(x, y, radius, 0, Math.PI, false);
+    this.ctx.arc(x, y, radius, 0, Math.PI*2);
     displayStyle.fill ? this.ctx.fill() : this.ctx.stroke();
     this.ctx.restore();
   }

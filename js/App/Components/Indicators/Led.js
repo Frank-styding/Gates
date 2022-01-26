@@ -5,6 +5,14 @@ class C_Led extends Component {
     this.width = new State(width);
     this.height = new State(height);
     this.value = new State(false);
+
+    this.backgroundStyle = new State(
+      new DisplayStyle({ fill: true, color: new Color(255, 0, 0) })
+    );
+    this.indicatorStyle = new State(
+      new DisplayStyle({ fill: false, color: new Color(255, 255, 255) })
+    );
+
     this.setCollider(new RectCollider(width, height));
     this.initUpdateFuncs();
     this.render();
@@ -19,22 +27,30 @@ class C_Led extends Component {
       this.render();
     });
     this.value.addUpdateFunc(() => {
+      this.indicatorStyle.value.fill = this.value.value;
       this.render();
     });
   }
+  mouseDown(){
+      this.value.value = !this.value.value;
+  }
   render() {
     this.display.clear();
+
     this.display.roundedRect(
       this.width.value / 2,
       this.height.value / 2,
       this.width.value,
       this.height.value,
-      6,
-      new DisplayStyle({
-        fill: true,
-        color: new Color(255, 255, 0),
-      })
+      20,
+      this.backgroundStyle.value
     );
 
+    this.display.circle(
+      this.width.value / 2,
+      this.height.value / 2,
+      this.width.value * 0.3,
+      this.indicatorStyle.value
+    );
   }
 }
