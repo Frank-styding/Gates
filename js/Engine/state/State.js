@@ -6,7 +6,7 @@ class State {
   addUpdateFunc(func) {
     this.funcs.push(func);
   }
-  set value(valueFunc) {
+  setValue(valueFunc) {
     let value_clone = this.clone(this._value);
     value_clone = valueFunc(value_clone);
 
@@ -15,7 +15,7 @@ class State {
       this.funcs.forEach((func) => func(this._value));
     }
   }
-  get value() {
+  value() {
     return this._value;
   }
   equal(a, b) {
@@ -37,13 +37,13 @@ class State {
   clone(object) {
     if (typeof object == "object") {
       const keys = Object.keys(object);
-      let result = Object.assign(
-        Object.create(Object.getPrototypeOf(object)),
-        object
-      );
+
+      let result = {};
+
       for (let key of keys) {
         result[key] = this.clone(object[key]);
       }
+      Object.setPrototypeOf(result, Object.getPrototypeOf(object));
       return result;
     }
     if (Array.isArray(object)) {

@@ -22,8 +22,8 @@ class Controller {
           return aux;
         }
       }
-      if (component.collider != undefined) {
-        if (component.collider.mouseIsInside(x, y)) {
+      if (component.collider.value != undefined) {
+        if (component.collider.value.pointIsInside(x, y)) {
           return component;
         }
       }

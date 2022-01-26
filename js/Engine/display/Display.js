@@ -33,8 +33,8 @@ class Display {
     this.ctx.save();
     displayStyle.setToContext(this.ctx);
     displayStyle.fill
-      ? this.ctx.fillRect(x, y, width, height)
-      : this.ctx.strokeRect(x, y, width, height);
+      ? this.ctx.fillRect(x - width / 2, y - height / 2, width, height)
+      : this.ctx.strokeRect(x - width / 2, y - height / 2, width, height);
     this.ctx.restore();
   }
 
@@ -68,5 +68,55 @@ class Display {
     displayStyle.setToContext(this.ctx);
     this.ctx.drawImage(image, x - image.width / 2, y - image.height / 2);
     this.ctx.restore();
+  }
+
+  renderComponent(component) {
+    if (component.display) {
+      this.ctx.save();
+      component.transform.value
+        .getTransformMatrix()
+        .setToContextTransform(this.ctx);
+
+      this.ctx.drawImage(
+        component.display.ctx.canvas,
+        -component.display.ctx.canvas.width / 2,
+        -component.display.ctx.canvas.height / 2
+      );
+      this.ctx.restore();
+    }
+    for (const child of component.childs) {
+      this.renderComponent(child);
+    }
+  }
+
+  renderCollider(component, displayStyle) {
+    if (component.collider.value) {
+      const collider = component.collider.value;
+
+      this.ctx.save();
+
+      component.transform.value
+        .getTransformMatrix()
+        .setToContextTransform(this.ctx);
+
+      switch (collider.className) {
+        case "RectCollider":
+          this.rect(0, 0, collider.width, collider.height, displayStyle);
+          break;
+        case "CircleCollider":
+          this.circle(0, 0, collider.r, displayStyle);
+          break;
+        case "PathCollider":
+          this.path(collider.path, displayStyle);
+          break;
+        default:
+          return;
+      }
+
+      this.ctx.restore();
+    }
+    for (const child of component.childs) {
+      this.renderCollider(child, displayStyle);
+    }
   }
 }

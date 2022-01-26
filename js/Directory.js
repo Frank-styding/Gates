@@ -7,11 +7,15 @@ let DIRECTORY = {
 
       subDirectories: [
         {
-          name: "math",
+          name: "Thread",
+          files: ["Thread.js"],
+        },
+        {
+          name: "Math",
           files: ["Vector2.js", "Matrix3x3.js", "Transform.js"],
         },
         {
-          name: "colliders",
+          name: "Colliders",
           files: [
             "Collider.js",
             "CircleCollider.js",
@@ -19,9 +23,9 @@ let DIRECTORY = {
             "RectCollider.js",
           ],
         },
-        { name: "state", files: ["State.js"] },
+        { name: "State", files: ["State.js"] },
         {
-          name: "controller",
+          name: "Controller",
           files: [
             "KeyboardController.js",
             "MouseController.js",
@@ -29,7 +33,7 @@ let DIRECTORY = {
           ],
         },
         {
-          name: "display",
+          name: "Display",
           files: [
             "Color.js",
             "Shadow.js",
@@ -44,8 +48,8 @@ let DIRECTORY = {
           ],
         },
         {
-          name: "components",
-          files: ["Component.js", "Rect.js"],
+          name: "Components",
+          files: ["Component.js"],
         },
       ],
     },
