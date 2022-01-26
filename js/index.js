@@ -8,25 +8,20 @@ let display = new Display({
 });
 let controller = new Controller(canvas);
 
-/* let led = new C_Led(true, "Nose", 200, 40);
-let led1 = new C_Led(true, "Nose", 200, 40); */
+let led = new C_Led(100,100);
 
-/* controller.setMouseInteracion(led);
-controller.setMouseInteracion(led1); */
+led.transform.setValue((transform)=>{
+  transform.model.translate(200,200);
+  return transform;
+})
 
-/* led.transform.value = (transform) => {
-  transform.model.translate(200, 200).rotate(45);
-  return transform;
-};
-led1.transform.value = (transform) => {
-  transform.model.translate(400, 200);
-  return transform;
-}; */
 
 let lastCalledTime, fps;
 function loop() {
   display.clear();
   display.background(new Color(0, 0, 0, 0));
+
+  display.renderComponent(led);
   /*   display.renderComponent(led);
   display.renderComponent(led1); */
 

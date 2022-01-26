@@ -15,7 +15,7 @@ class State {
       this.funcs.forEach((func) => func(this._value));
     }
   }
-  value() {
+  get value() {
     return this._value;
   }
   equal(a, b) {

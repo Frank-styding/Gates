@@ -37,6 +37,48 @@ class Display {
       : this.ctx.strokeRect(x - width / 2, y - height / 2, width, height);
     this.ctx.restore();
   }
+  roundedRect(x, y, width, height, borderRadius, displayStyle) {
+    this.ctx.save();
+    displayStyle.setToContext(this.ctx);
+
+    this.ctx.moveTo(x - width / 2 + borderRadius, y - height / 2);
+    this.ctx.lineTo(x + width / 2 - borderRadius, y - height / 2);
+    this.ctx.arc(
+      x + width / 2 - borderRadius,
+      y - height / 2 + borderRadius,
+      borderRadius,
+      (Math.PI * 3) / 2,
+      0
+    );
+
+    this.ctx.lineTo(x + width / 2, y + height / 2 - borderRadius);
+    this.ctx.arc(
+      x + width / 2 - borderRadius,
+      y + height / 2 - borderRadius,
+      borderRadius,
+      0,
+      Math.PI / 2
+    );
+    this.ctx.lineTo(x - width / 2 + borderRadius, y + height / 2);
+    this.ctx.arc(
+      x - width / 2 + borderRadius,
+      y + height / 2 - borderRadius,
+      borderRadius,
+      Math.PI / 2,
+      Math.PI
+    );
+    this.ctx.lineTo(x - width / 2, y - height / 2 + borderRadius);
+    this.ctx.arc(
+      x - width / 2 + borderRadius,
+      y - height / 2 + borderRadius,
+      borderRadius,
+      Math.PI,
+      (Math.PI * 3) / 2
+    );
+    displayStyle.fill ? this.ctx.fill() : this.ctx.stroke();
+
+    this.ctx.restore();
+  }
 
   circle(x, y, radius, displayStyle) {
     this.ctx.save();
