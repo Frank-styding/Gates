@@ -1,7 +1,11 @@
 class Component {
+  static ID = -1;
   constructor() {
-    this.display = undefined;
+    Component.ID++;
+    this.id = Component.ID;
+    this.name = "";
 
+    this.display = undefined;
     this.collider = new State(undefined);
     this.transform = new State(new Transform());
     this.pos = new State(new Vector2());
@@ -9,28 +13,84 @@ class Component {
     this.childs = [];
     this.parent = undefined;
 
-    this.transform.addUpdateFunc(() => {
-      this.pos.setValue((pos) => {
-        pos.copy(this.transform.value.getTransformMatrix().getTranslation());
-        return pos;
-      });
-    });
+    this.hasMouseInteraction = true;
+    this.hasKeyboardInteraction = true;
+
+    this.events = {
+      keyDown: [],
+      keyPress: [],
+      keyUp: [],
+      mouseDown: [],
+      mouseUp: [],
+      mouseMove: [],
+      mouseLeave: [],
+      mouseOver: [],
+    };
   }
 
+  addEvents(type, func) {
+    this.events[type].push(func);
+  }
+  //keyboardEvent
+  _keyDown() {}
+  _keyPress() {}
+  _keyUp() {}
+
   //keyboard
-  keyDown() {}
-  keyPress() {}
-  keyUp() {}
+  keyDown(e) {
+    this._keyDown(e);
+    this.events.keyDown.forEach((func) => func({ ...e, ...this }));
+  }
+  keyPress(e) {
+    this._keyPress(e);
+    this.events.keyPress.forEach((func) => func({ ...e, ...this }));
+  }
+  keyUp(e) {
+    this._keyUp(e);
+    this.events.keyUp.forEach((func) => func({ ...e, ...this }));
+  }
+
+  //mouseEvent
+  _mouseUp() {}
+  _mouseDown() {}
+  _mouseMove() {}
+  _mouseLeave() {}
+  _mouseOver() {}
 
   //mouse
-  mouseDown() {}
-  mouseUp() {}
-  mouseMove() {}
-  mouseLeave() {}
-  mouseOver() {}
+  mouseDown(e) {
+    this._mouseDown(e);
+    this.events.mouseDown.forEach((func) => func({ ...e, target: this }));
+  }
+  mouseUp(e) {
+    this._mouseUp(e);
+    this.events.mouseUp.forEach((func) => func({ ...e, target: this }));
+  }
+  mouseMove(e) {
+    this._mouseMove(e);
+    this.events.mouseMove.forEach((func) => func({ ...e, target: this }));
+  }
+  mouseLeave(e) {
+    this._mouseLeave(e);
+    this.events.mouseLeave.forEach((func) => func({ ...e, target: this }));
+  }
+  mouseOver(e) {
+    this._mouseOver(e);
+    this.events.mouseOver.forEach((func) => func({ ...e, target: this }));
+  }
 
   initUpdateFuncs() {}
-  update() {}
+
+  _update() {}
+  update() {
+    this._update();
+    this.pos.setValue((pos) => {
+      pos.copy(this.transform.value.getTransformMatrix().getTranslation());
+      return pos;
+    });
+    this.childs.forEach((child) => child.update());
+  }
+
   render() {}
 
   setCollider(collider) {

@@ -7,5 +7,6 @@ class TextStyle {
   setToContext(ctx) {
     ctx.textAlign = this.textAlign;
     ctx.textBaseline = this.textBaseline;
+    ctx.font = this.font;
   }
 }

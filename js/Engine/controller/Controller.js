@@ -22,11 +22,15 @@ class Controller {
           return aux;
         }
       }
-      if (component.collider.value != undefined) {
-        if (component.collider.value.pointIsInside(x, y)) {
-          return component;
+
+      if (component.hasMouseInteraction) {
+        if (component.collider.value != undefined) {
+          if (component.collider.value.pointIsInside(x, y)) {
+            return component;
+          }
         }
       }
+
       return undefined;
     };
 
@@ -69,7 +73,9 @@ class Controller {
     let subComponents = [];
 
     let findChidls = (component) => {
-      subComponents.push(component);
+      if (component.hasKeyboardInteraction) {
+        subComponents.push(component);
+      }
       component.childs.forEach((item) => findChidls(item));
     };
 

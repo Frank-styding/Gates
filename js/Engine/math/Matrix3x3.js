@@ -30,6 +30,11 @@ class Matrix3x3 {
   getTranslation() {
     return new Vector2(this.data[2], this.data[5]);
   }
+  setTranslation(x, y) {
+    this.data[2] = x;
+    this.data[5] = y;
+    return this;
+  }
 
   setToContextTransform(ctx) {
     ctx.transform(

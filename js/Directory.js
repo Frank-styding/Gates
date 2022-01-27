@@ -21,6 +21,7 @@ let DIRECTORY = {
             "CircleCollider.js",
             "PathCollider.js",
             "RectCollider.js",
+            "RoundedRectCollider.js",
           ],
         },
         { name: "State", files: ["State.js"] },
@@ -59,7 +60,13 @@ let DIRECTORY = {
       subDirectories: [
         {
           name: "Components",
-          subDirectories: [],
+          files: ["Conection.js", "BoxConections.js"],
+          subDirectories: [
+            {
+              name: "shapes",
+              files: ["Circle.js", "RoundedRect.js"],
+            },
+          ],
         },
       ],
     },

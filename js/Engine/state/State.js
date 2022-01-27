@@ -26,7 +26,7 @@ class State {
         return false;
       }
       for (let key of keys1) {
-        if (this.equal(a[key], b[key])) {
+        if (!this.equal(a[key], b[key])) {
           return false;
         }
       }

@@ -82,9 +82,9 @@ class Display {
 
   circle(x, y, radius, displayStyle) {
     this.ctx.save();
-    displayStyle.setToContext(this.ctx)
+    displayStyle.setToContext(this.ctx);
     this.ctx.beginPath();
-    this.ctx.arc(x, y, radius, 0, Math.PI*2);
+    this.ctx.arc(x, y, radius, 0, Math.PI * 2);
     displayStyle.fill ? this.ctx.fill() : this.ctx.stroke();
     this.ctx.restore();
   }
@@ -103,6 +103,15 @@ class Display {
       this.ctx.closePath();
     }
     displayStyle.fill ? this.ctx.fill() : this.ctx.stroke();
+    this.ctx.restore();
+  }
+
+  text(x, y, text, displayStyle) {
+    this.ctx.save();
+    displayStyle.setToContext(this.ctx);
+    displayStyle.fill
+      ? this.ctx.fillText(text, x, y)
+      : this.ctx.strokeText(text, x, y);
     this.ctx.restore();
   }
 
