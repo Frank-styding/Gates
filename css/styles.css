@@ -1,7 +1,36 @@
-@import url(https://fonts.googleapis.com/css?family=Lobster);
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body {
   margin: 0;
   padding: 0;
   display: flex;
-  font-family: "Lobster";
+}
+.root{
+  display: grid;
+  grid-template-columns:  auto 250px;
+  width:100vw;
+  height:100vh;
+}
+.panel{
+  background-color: rgb(22, 20, 20);
+}
+.menu{
+  display:grid;
+  grid-template-columns: repeat(2,auto);
+  width: 100%;
+  height: 20px;
+  color:rgb(207, 206, 206);
+  font-family: Roboto;
+}
+.menu .option{
+  padding: 8px 0px;
+  text-align: center;
+  border-left:1px solid gray;
+  border-bottom: 1px solid gray;
+  cursor:default;
+}
+.menu .option.active{
+  background:  rgb(75, 69, 69) !important;
+}
+.menu .option:hover{
+  background:rgb(63, 63, 63);
 }

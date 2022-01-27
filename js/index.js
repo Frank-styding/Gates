@@ -1,4 +1,4 @@
-let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
+/* let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
 
 async function load() {
   let font = await myFont.load();
@@ -64,3 +64,4 @@ function app() {
   }
   requestAnimationFrame(loop);
 }
+ */
