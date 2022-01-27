@@ -56,22 +56,12 @@ let DIRECTORY = {
     {
       name: "App",
       files: ["App.js"],
-      subDirectories:[
+      subDirectories: [
         {
-          name:"Components",
-          subDirectories:[
-            {
-              name:"Gates",
-              files:[]
-            },
-            {
-              name:"Indicators",
-              files:["Led.js"]
-            }
-          ]
-        }
-        
-      ]
+          name: "Components",
+          subDirectories: [],
+        },
+      ],
     },
   ],
 };

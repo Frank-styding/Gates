@@ -8,13 +8,13 @@ let display = new Display({
 });
 let controller = new Controller(canvas);
 
-let led = new C_Led(100,100);
+let led = new C_Led(50, 50);
 
-led.transform.setValue((transform)=>{
-  transform.model.translate(200,200);
+controller.setMouseInteracion(led);
+led.transform.setValue((transform) => {
+  transform.model.translate(200, 200);
   return transform;
-})
-
+});
 
 let lastCalledTime, fps;
 function loop() {
