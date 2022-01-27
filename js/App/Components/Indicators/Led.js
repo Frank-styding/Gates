@@ -30,15 +30,15 @@ class C_Led extends Component {
       this.indicatorStyle.value.fill = this.value.value;
       this.render();
     });
-    this.backgroundStyle.addUpdateFunc(()=>{
+    this.backgroundStyle.addUpdateFunc(() => {
       this.render();
-    })
-    this.indicatorStyle.addUpdateFunc(()=>{
+    });
+    this.indicatorStyle.addUpdateFunc(() => {
       this.render();
-    })
+    });
   }
-  mouseDown(){
-      this.value.value = !this.value.value;
+  mouseDown() {
+    this.value.setValue(() => !this.value.value);
   }
   render() {
     this.display.clear();
