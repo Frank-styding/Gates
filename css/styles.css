@@ -1,36 +1,104 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Roboto&display=swap");
 body {
   margin: 0;
   padding: 0;
   display: flex;
 }
-.root{
+.root {
   display: grid;
-  grid-template-columns:  auto 250px;
-  width:100vw;
-  height:100vh;
+  grid-template-columns: auto 250px;
+  width: 100vw;
+  height: 100vh;
 }
-.panel{
-  background-color: rgb(22, 20, 20);
+.panel {
+  display: grid;
+  grid-template-rows: 35px auto;
+  width: 250px;
+  height: 100vh;
+  background-color: #4b4b4b;
 }
-.menu{
-  display:grid;
-  grid-template-columns: repeat(2,auto);
+/* 
+MENU
+*/
+.menu {
+  display: grid;
+  grid-template-columns: repeat(3, auto);
+  background-color: #aaaaaa;
   width: 100%;
-  height: 20px;
-  color:rgb(207, 206, 206);
+  color: rgb(207, 206, 206);
   font-family: Roboto;
 }
-.menu .option{
+.menu .option {
+  cursor: default;
   padding: 8px 0px;
+  font-size: 14px;
   text-align: center;
-  border-left:1px solid gray;
-  border-bottom: 1px solid gray;
-  cursor:default;
+  background-color: #4b4b4b;
+  border-left: 1px solid #808080;
+  border: 1px solid gray;
 }
-.menu .option.active{
-  background:  rgb(75, 69, 69) !important;
+.menu .option.selected {
+  border-bottom: none !important;
+  background-color: #4b4b4b !important;
 }
-.menu .option:hover{
-  background:rgb(63, 63, 63);
+.menu .option:hover {
+  background: #3f3f3f;
+}
+/* 
+CONTROLS
+*/
+.controls {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  padding: 20px 0px;
+}
+
+.control {
+  width: 230px;
+}
+
+.control .title {
+  display: flex;
+  background: #636363;
+  padding: 10px 20px;
+  border-radius: 3px;
+  font-family: Roboto;
+  color: white;
+}
+
+.control .options {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  padding: 7px;
+
+  color: white;
+}
+
+.control .options .option {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  font-family: Roboto;
+}
+
+.control .options .option .inputs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  width: 140px;
+}
+
+.control .options .option .inputs .container-input {
+  display: flex;
+  gap: 8px;
+}
+
+.control .options .option .inputs .container-input input {
+  width: 20px;
+  outline: none;
+  border-radius: 5px;
+  border: none;
 }
