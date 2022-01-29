@@ -99,6 +99,6 @@ CONTROLS
 .control .options .option .inputs .container-input input {
   width: 20px;
   outline: none;
-  border-radius: 5px;
+  border-radius: 2px;
   border: none;
 }
