@@ -1,3 +1,135 @@
+function propertiesContainerTemplate(properties) {
+  return `
+  <div class="properties-container">
+      ${properties.map((property) => propertyTemplate(property)).join("")}
+  </div>
+  `;
+}
+function propertyTemplate({ title, subProperties }) {
+  return `
+  <div class="property">
+      <div class="title">${title}</div>
+      <div class="subProperties-container">
+      ${subProperties
+        .map((subProperty) => subPropertyTemplate(subProperty))
+        .join("")}
+      </div>
+  </div>
+  `;
+}
+function subPropertyTemplate({ name, inputs }) {
+  return `
+  <div class="subProperty">
+    <div class="name">${name}</div>
+    <div class="inputs">
+        ${inputs.map((input) => containerInputTemplate(input)).join("")}
+    </div>
+  </div>
+  `;
+}
+function containerInputTemplate({ name, type, id }) {
+  return `
+  <div class="container-input">
+     <div class="name">${name}</div>
+     <input type="${type}" id="${id}"/>
+  </div>
+  `;
+}
+$("#panel-container").append(
+  propertiesContainerTemplate([
+    {
+      title: "Transform",
+      subProperties: [
+        {
+          name: "Scale",
+          inputs: [
+            {
+              name: "x",
+              type: "text",
+              id: "scale-x",
+            },
+            {
+              name: "y",
+              type: "text",
+              id: "scale-y",
+            },
+          ],
+        },
+        {
+          name: "Translate",
+          inputs: [
+            {
+              name: "x",
+              type: "text",
+              id: "scale-x",
+            },
+            {
+              name: "y",
+              type: "text",
+              id: "scale-y",
+            },
+          ],
+        },
+        {
+          name: "Rotate",
+          inputs: [
+            {
+              name: "angle",
+              type: "text",
+              id: "scale-x",
+            },
+          ],
+        },
+      ],
+    },
+    {
+      title: "Style",
+      subProperties: [
+        {
+          name: "Scale",
+          inputs: [
+            {
+              name: "x",
+              type: "text",
+              id: "scale-x",
+            },
+            {
+              name: "y",
+              type: "text",
+              id: "scale-y",
+            },
+          ],
+        },
+        {
+          name: "Translate",
+          inputs: [
+            {
+              name: "x",
+              type: "text",
+              id: "scale-x",
+            },
+            {
+              name: "y",
+              type: "text",
+              id: "scale-y",
+            },
+          ],
+        },
+        {
+          name: "Rotate",
+          inputs: [
+            {
+              name: "angle",
+              type: "text",
+              id: "scale-x",
+            },
+          ],
+        },
+      ],
+    },
+  ])
+);
+
 /* let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
 
 async function load() {

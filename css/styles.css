@@ -45,20 +45,20 @@ MENU
   background: #3f3f3f;
 }
 /* 
-CONTROLS
+PROPIETIES
 */
-.controls {
+.properties-container {
   display: flex;
   align-items: center;
   flex-direction: column;
   padding: 20px 0px;
 }
 
-.control {
+.property {
   width: 230px;
 }
 
-.control .title {
+.property .title {
   display: flex;
   background: #636363;
   padding: 10px 20px;
@@ -67,7 +67,7 @@ CONTROLS
   color: white;
 }
 
-.control .options {
+.property .subProperties-container {
   display: flex;
   flex-direction: column;
   gap: 15px;
@@ -76,7 +76,7 @@ CONTROLS
   color: white;
 }
 
-.control .options .option {
+.property .subProperties-container .subProperty {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -84,21 +84,33 @@ CONTROLS
   font-family: Roboto;
 }
 
-.control .options .option .inputs {
+.property .subProperties-container .subProperty .inputs {
   display: flex;
+  flex-direction: row-reverse;
+  justify-content: center;
   flex-wrap: wrap;
   gap: 8px;
   width: 140px;
 }
 
-.control .options .option .inputs .container-input {
+.property .subProperties-container .subProperty .inputs .container-input {
   display: flex;
   gap: 8px;
 }
 
-.control .options .option .inputs .container-input input {
+.property .subProperties-container .subProperty .inputs .container-input input {
   width: 20px;
   outline: none;
   border-radius: 2px;
   border: none;
+  text-align: center;
+}
+
+.property
+  .subProperties-container
+  .subProperty
+  .inputs
+  .container-input
+  input::-webkit-inner-spin-button {
+  display: none;
 }
