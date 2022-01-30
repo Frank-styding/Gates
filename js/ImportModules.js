@@ -1,37 +1,41 @@
-function addScript(src) {
+async function addScript(src) {
   let script = document.createElement("script");
   script.src = src;
-  document.body.appendChild(script);
-  let j = 0;
-  for (let i = 1; i < 10000; i++) {
-    j *= i;
+  let j = 2;
+  for (let i = 1; i < 5000; i++) {
+    j *= j;
   }
+
+  await new Promise((resolve) => {
+    setTimeout(() => resolve(), 3);
+  });
+  document.body.appendChild(script);
 }
 
-function addScripstByDirectory(directory, path) {
+async function addScripstByDirectory(directory, path) {
   path += directory.name + "/";
 
-  let subDirectory = () => {
+  let subDirectory = async () => {
     if (directory.subDirectories != undefined) {
       for (const subDirectory of directory.subDirectories) {
-        addScripstByDirectory(subDirectory, path);
+        await addScripstByDirectory(subDirectory, path);
       }
     }
   };
-  let files = () => {
+  let files = async () => {
     if (directory.files != undefined) {
       for (const file of directory.files) {
-        addScript(path + file);
+        await addScript(path + file);
       }
     }
   };
   if (directory.firstFiles != undefined) {
     if (directory.firstFiles) {
-      files();
-      subDirectory();
+      await files();
+      await subDirectory();
     }
   } else {
-    subDirectory();
-    files();
+    await subDirectory();
+    await files();
   }
 }

@@ -4,7 +4,6 @@ let DIRECTORY = {
   subDirectories: [
     {
       name: "Engine",
-
       subDirectories: [
         {
           name: "Thread",
@@ -65,6 +64,43 @@ let DIRECTORY = {
             {
               name: "shapes",
               files: ["Circle.js", "RoundedRect.js"],
+            },
+          ],
+        },
+        {
+          name: "DOMTemplate",
+          files: ["DOMTemplate.js"],
+          firstFiles: true,
+          subDirectories: [
+            {
+              name: "Panel",
+              files: ["Panel.js", "PanelContainer.js"],
+            },
+            {
+              name: "Menu",
+              files: ["Menu.js", "MenuOption.js"],
+            },
+            {
+              name: "Components",
+              files: [
+                "Component.js",
+                "ComponentContainer.js",
+                "Components.js",
+                "ComponentsContainer.js",
+              ],
+            },
+            {
+              name: "Properties",
+              files: [
+                "SubProperty.js",
+                "Property.js",
+                "PropertiesContainer.js",
+                "InputContainer.js",
+              ],
+            },
+            {
+              name: "CanvasContainer",
+              files: ["CanvasContainer.js"],
             },
           ],
         },

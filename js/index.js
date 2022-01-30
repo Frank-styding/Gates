@@ -1,134 +1,164 @@
-function propertiesContainerTemplate(properties) {
-  return `
-  <div class="properties-container">
-      ${properties.map((property) => propertyTemplate(property)).join("")}
-  </div>
-  `;
-}
-function propertyTemplate({ title, subProperties }) {
-  return `
-  <div class="property">
-      <div class="title">${title}</div>
-      <div class="subProperties-container">
-      ${subProperties
-        .map((subProperty) => subPropertyTemplate(subProperty))
-        .join("")}
-      </div>
-  </div>
-  `;
-}
-function subPropertyTemplate({ name, inputs }) {
-  return `
-  <div class="subProperty">
-    <div class="name">${name}</div>
-    <div class="inputs">
-        ${inputs.map((input) => containerInputTemplate(input)).join("")}
+let propertiesContainer = new DT_PropertiesContainer([
+  {
+    title: "Transform",
+    subProperties: [
+      {
+        name: "Scale",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Translate",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Rotate",
+        inputs: [
+          {
+            name: "angle",
+            type: "text",
+            id: "scale-x",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Style",
+    subProperties: [
+      {
+        name: "Scale",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Translate",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Rotate",
+        inputs: [
+          {
+            name: "angle",
+            type: "text",
+            id: "scale-x",
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+let panel = new DT_Panel();
+let menu = new DT_Menu(["Component", "Properies"]);
+let panelContainer = new DT_PanelContainer();
+
+let componentsContainer = new DT_ComponentsContainer([
+  {
+    name: "Rect",
+    iconName: "rect",
+    subComponents: [
+      {
+        name: "Circle",
+        iconName: "circle",
+        subComponents: [
+          {
+            name: "Component",
+            iconName: "component",
+            subComponents: [],
+          },
+        ],
+      },
+      {
+        name: "Circle",
+        iconName: "rect",
+        subComponents: [
+          {
+            name: "Component",
+            iconName: "component",
+            subComponents: [],
+          },
+        ],
+      },
+    ],
+  },
+]);
+/* panelContainer.addChild(propertiesContainer); */
+
+panelContainer
+  .getTemplate()
+  .append(componentsContainer.getTemplate()); /* .html(`
+<div class="components-container">
+  <div class="components">
+    <div class="component-container">
+        <div class="component">
+           <div class="icon">
+             <div class="rect"></div>
+           </div>
+           <div class="name">Rect</div>
+        </div>
+        <div class="subComponents">
+          <div class="component-container">
+            <div class="component">
+               <div class="icon">
+                 <div class="rect"></div>
+               </div>
+               <div class="name">Rect</div>
+            </div>
+            <div class="subComponents"></div>
+          </div>
+        </div>
     </div>
   </div>
-  `;
-}
-function containerInputTemplate({ name, type, id }) {
-  return `
-  <div class="container-input">
-     <div class="name">${name}</div>
-     <input type="${type}" id="${id}"/>
-  </div>
-  `;
-}
-$("#panel-container").append(
-  propertiesContainerTemplate([
-    {
-      title: "Transform",
-      subProperties: [
-        {
-          name: "Scale",
-          inputs: [
-            {
-              name: "x",
-              type: "text",
-              id: "scale-x",
-            },
-            {
-              name: "y",
-              type: "text",
-              id: "scale-y",
-            },
-          ],
-        },
-        {
-          name: "Translate",
-          inputs: [
-            {
-              name: "x",
-              type: "text",
-              id: "scale-x",
-            },
-            {
-              name: "y",
-              type: "text",
-              id: "scale-y",
-            },
-          ],
-        },
-        {
-          name: "Rotate",
-          inputs: [
-            {
-              name: "angle",
-              type: "text",
-              id: "scale-x",
-            },
-          ],
-        },
-      ],
-    },
-    {
-      title: "Style",
-      subProperties: [
-        {
-          name: "Scale",
-          inputs: [
-            {
-              name: "x",
-              type: "text",
-              id: "scale-x",
-            },
-            {
-              name: "y",
-              type: "text",
-              id: "scale-y",
-            },
-          ],
-        },
-        {
-          name: "Translate",
-          inputs: [
-            {
-              name: "x",
-              type: "text",
-              id: "scale-x",
-            },
-            {
-              name: "y",
-              type: "text",
-              id: "scale-y",
-            },
-          ],
-        },
-        {
-          name: "Rotate",
-          inputs: [
-            {
-              name: "angle",
-              type: "text",
-              id: "scale-x",
-            },
-          ],
-        },
-      ],
-    },
-  ])
-);
+</div>
+`); */
+
+panel.addChild(menu);
+panel.addChild(panelContainer);
+
+$("#root").append(panel.getTemplate());
 
 /* let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
 

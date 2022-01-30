@@ -114,3 +114,101 @@ PROPIETIES
   input::-webkit-inner-spin-button {
   display: none;
 }
+
+/* 
+COMPONENTS
+*/
+.components-container {
+  padding: 15px;
+  height: calc(100% - 30px);
+}
+
+.components {
+  display: flex;
+  flex-direction: column;
+  height: calc(100% - 30px);
+  padding: 15px;
+  border-radius: 5px;
+  gap: 10px;
+  background-color: #2e2e2e;
+}
+.component-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.component-container .component {
+  display: flex;
+  gap: 15px;
+  font-family: Roboto;
+  color: white;
+  padding: 5px;
+  border-radius: 5px;
+  user-select: none;
+  cursor: pointer;
+}
+
+.component-container .component:hover {
+  background-color: #474747;
+}
+
+.component-container .subComponents {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  padding-left: 20px;
+}
+/* 
+iCONS
+*/
+
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+.icon .icon-rect {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #c4c4c4;
+}
+.icon .icon-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+}
+.icon .icon-range {
+  width: 20px;
+  height: 15px;
+  border-radius: 3px;
+  background-color: #c4c4c4;
+  position: relative;
+}
+.icon .icon-range:after {
+  position: absolute;
+  content: "";
+  width: 8px;
+  height: 15px;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.icon .icon-component {
+  width: 20px;
+  height: 20px;
+  background-color: #c4c4c4;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+.icon .icon-component:after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translate(50%, 50%);
+  background-color: #ffffff;
+}
