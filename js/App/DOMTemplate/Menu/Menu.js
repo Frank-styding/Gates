@@ -1,7 +1,9 @@
 class DT_Menu extends DOMTemplate {
   constructor(options) {
     super();
+
     this.template = this.createTemplate(options);
+    this.selectedOption = $(this.template[0].children[0]).html();
 
     for (let option of this.template[0].children) {
       let $option = $(option);
@@ -10,6 +12,7 @@ class DT_Menu extends DOMTemplate {
           $(_option).removeClass("selected");
         }
         $option.addClass("selected");
+        this.selectedOption = $option.html();
       });
     }
   }

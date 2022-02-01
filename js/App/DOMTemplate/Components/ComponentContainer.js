@@ -1,6 +1,10 @@
 class DT_ComponentContainer extends DOMTemplate {
   constructor(data) {
-    super();
+    super({
+      tagType: "div",
+      className: "component-container",
+    });
+
     this.data = data;
     this.template = this.createTemplate();
   }

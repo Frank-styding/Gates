@@ -1,4 +1,26 @@
-let propertiesContainer = new DT_PropertiesContainer([
+let template = new DOMTemplate({
+  tagType: "div",
+  className: "panel-container",
+  childs: [
+    {
+      tagType: "canvas",
+      id: "canvas",
+      attributes: {
+        width: "200",
+      },
+      className: "panel",
+      childs: [],
+    },
+    {
+      tagType: "canvas",
+      className: "nose",
+      childs: [],
+    },
+  ],
+});
+
+console.log(template.templateStruct);
+/* let propertiesContainer = new DT_PropertiesContainer([
   {
     title: "Transform",
     subProperties: [
@@ -92,7 +114,17 @@ let propertiesContainer = new DT_PropertiesContainer([
 ]);
 
 let panel = new DT_Panel();
-let menu = new DT_Menu(["Component", "Properies"]);
+let menu = new DT_Menu(["Components", "Properies"]);
+
+$(menu.getTemplate()).click(() => {
+  panelContainer.getTemplate().html("");
+  if (menu.selectedOption == "Components") {
+    panelContainer.getTemplate().append(componentsContainer.getTemplate());
+  } else {
+    panelContainer.getTemplate().append(propertiesContainer.getTemplate());
+  }
+});
+
 let panelContainer = new DT_PanelContainer();
 
 let componentsContainer = new DT_ComponentsContainer([
@@ -124,42 +156,16 @@ let componentsContainer = new DT_ComponentsContainer([
       },
     ],
   },
-]);
+]); */
 /* panelContainer.addChild(propertiesContainer); */
 
-panelContainer
-  .getTemplate()
-  .append(componentsContainer.getTemplate()); /* .html(`
-<div class="components-container">
-  <div class="components">
-    <div class="component-container">
-        <div class="component">
-           <div class="icon">
-             <div class="rect"></div>
-           </div>
-           <div class="name">Rect</div>
-        </div>
-        <div class="subComponents">
-          <div class="component-container">
-            <div class="component">
-               <div class="icon">
-                 <div class="rect"></div>
-               </div>
-               <div class="name">Rect</div>
-            </div>
-            <div class="subComponents"></div>
-          </div>
-        </div>
-    </div>
-  </div>
-</div>
-`); */
+/* panelContainer.getTemplate().append(componentsContainer.getTemplate());
 
 panel.addChild(menu);
 panel.addChild(panelContainer);
 
 $("#root").append(panel.getTemplate());
-
+ */
 /* let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
 
 async function load() {
