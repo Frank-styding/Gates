@@ -71,7 +71,29 @@ let DIRECTORY = {
           name: "DOMTemplate",
           files: ["DOMTemplate.js"],
           firstFiles: true,
-          subDirectories: [],
+          subDirectories: [
+            {
+              name: "CanvasContainer",
+              files: ["CanvasContainer.js"],
+            },
+            {
+              name: "Panel",
+              files: ["Panel.js", "PanelContainer.js"],
+            },
+            {
+              name: "Menu",
+              files: ["Menu.js", "MenuOption.js"],
+            },
+            {
+              name: "Properties",
+              files: [
+                "Property.js",
+                "InputContainer.js",
+                "PropertiesContainer.js",
+                "SubProperty.js",
+              ],
+            },
+          ],
         },
       ],
     },

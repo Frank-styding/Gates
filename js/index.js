@@ -1,25 +1,120 @@
-let template = new DOMTemplate({
-  tagType: "div",
-  className: "panel-container",
+let root = new DOMTemplate({
+  template: $("#root")[0],
   childs: [
     {
-      tagType: "canvas",
-      id: "canvas",
-      attributes: {
-        width: "200",
-      },
-      className: "panel",
-      childs: [],
+      template: new DT_CanvasContainer(),
     },
     {
-      tagType: "canvas",
-      className: "nose",
-      childs: [],
+      template: new DT_Panel([
+        {
+          template: new DT_Menu(["components", "properties"]),
+        },
+        {
+          template: new DT_PanelContainer([
+            {
+              template: new DT_PropertiesContainer([
+                {
+                  title: "Transform",
+                  subProperties: [
+                    {
+                      name: "Scale",
+                      inputs: [
+                        {
+                          name: "x",
+                          type: "text",
+                          id: "scale-x",
+                        },
+                        {
+                          name: "y",
+                          type: "text",
+                          id: "scale-y",
+                        },
+                      ],
+                    },
+                    {
+                      name: "Translate",
+                      inputs: [
+                        {
+                          name: "x",
+                          type: "text",
+                          id: "scale-x",
+                        },
+                        {
+                          name: "y",
+                          type: "text",
+                          id: "scale-y",
+                        },
+                      ],
+                    },
+                    {
+                      name: "Rotate",
+                      inputs: [
+                        {
+                          name: "angle",
+                          type: "text",
+                          id: "scale-x",
+                        },
+                      ],
+                    },
+                  ],
+                },
+                {
+                  title: "Style",
+                  subProperties: [
+                    {
+                      name: "Scale",
+                      inputs: [
+                        {
+                          name: "x",
+                          type: "text",
+                          id: "scale-x",
+                        },
+                        {
+                          name: "y",
+                          type: "text",
+                          id: "scale-y",
+                        },
+                      ],
+                    },
+                    {
+                      name: "Translate",
+                      inputs: [
+                        {
+                          name: "x",
+                          type: "text",
+                          id: "scale-x",
+                        },
+                        {
+                          name: "y",
+                          type: "text",
+                          id: "scale-y",
+                        },
+                      ],
+                    },
+                    {
+                      name: "Rotate",
+                      inputs: [
+                        {
+                          name: "angle",
+                          type: "text",
+                          id: "scale-x",
+                        },
+                      ],
+                    },
+                  ],
+                },
+              ]),
+            },
+          ]),
+        },
+      ]),
     },
   ],
 });
-
-console.log(template.templateStruct);
+console.log(
+  root.templateStruct.childs[1].templateStruct.childs[1].templateStruct
+    .childs[0]
+);
 /* let propertiesContainer = new DT_PropertiesContainer([
   {
     title: "Transform",

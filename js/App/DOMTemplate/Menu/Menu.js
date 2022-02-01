@@ -1,8 +1,14 @@
 class DT_Menu extends DOMTemplate {
   constructor(options) {
-    super();
+    super({
+      tagName: "div",
+      className: "menu",
+      childs: options.map(
+        (option, idx) => new DT_MenuOption(option, idx == 0 ? true : false)
+      ),
+    });
 
-    this.template = this.createTemplate(options);
+    /* this.template = this.createTemplate(options);
     this.selectedOption = $(this.template[0].children[0]).html();
 
     for (let option of this.template[0].children) {
@@ -14,22 +20,6 @@ class DT_Menu extends DOMTemplate {
         $option.addClass("selected");
         this.selectedOption = $option.html();
       });
-    }
-  }
-  createTemplate(options) {
-    this.childs = [];
-    let $menu = $(document.createElement("div")).addClass("menu");
-    let start = true;
-
-    for (let option of options) {
-      let _option = new DT_MenuOption(option, start);
-      $menu.append(_option.getTemplate());
-      this.childs.push(_option);
-
-      if (start) {
-        start = false;
-      }
-    }
-    return $menu;
+    } */
   }
 }

@@ -1,11 +1,11 @@
 class DT_CanvasContainer extends DOMTemplate {
   constructor() {
     super({
-      tagType: "div",
+      tagName: "div",
       className: "canvas-container",
       childs: [
         {
-          tagType: "canvas",
+          tagName: "canvas",
           id: "canvas",
         },
       ],

@@ -4,11 +4,27 @@ class DOMTemplate {
     this.template = this.createTemplate(struct);
   }
 
+  isDOMElement(o) {
+    return typeof HTMLElement === "object"
+      ? o instanceof HTMLElement //DOM2
+      : o &&
+          typeof o === "object" &&
+          o !== null &&
+          o.nodeType === 1 &&
+          typeof o.nodeName === "string";
+  }
   createTemplate(struct) {
-    let createTag = ({ tagType, className, attributes, id, innerHTML }) => {
-      if (!tagType) return;
+    let createTag = ({
+      tagName,
+      className,
+      attributes,
+      id,
+      innerHTML,
+      template,
+    }) => {
+      if (tagName == undefined && template == undefined) return;
 
-      let $element = $(document.createElement(tagType));
+      let $element = $(template ?? document.createElement(tagName));
 
       if (className) {
         $element.addClass(className);
@@ -32,19 +48,83 @@ class DOMTemplate {
     };
 
     let createTemplateStruct = (struct, context = {}) => {
-      context.template = createTag(struct);
-      context.tagType = struct.tagName;
-      context.className = struct.className;
-      context.attributes = struct.attributes;
-      context.innerHtml = struct.innerHtml;
-      context.id = struct.id;
-      context.childs = [];
+      let getTemplate = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.template;
+        }
+        if (this.isDOMElement(struct.template)) {
+          return createTag({ template: struct.template, ...struct });
+        }
+        return createTag(struct);
+      };
+      let getClassName = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.templateStruct.className;
+        }
+        if (this.isDOMElement(struct.template)) {
+          return struct.template.className;
+        }
+        return struct.className;
+      };
+      let getId = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.templateStruct.id;
+        }
+        if (this.isDOMElement(struct.template)) {
+          return struct.template.id;
+        }
+        return struct.id;
+      };
+      let getTagName = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.templateStruct.tagName;
+        }
+        if (this.isDOMElement(struct.template)) {
+          return struct.template.tagName.toLowerCase();
+        }
+        return struct.tagName;
+      };
+      let getInnerHtml = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.templateStruct.innerHTML;
+        }
+        if (this.isDOMElement(struct.template)) {
+          return struct.template.innerHTML;
+        }
+        return struct.innerHTML;
+      };
+      let getAttributes = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.templateStruct.attributes;
+        }
+        return struct.attributes;
+      };
 
-      if (struct.childs) {
-        struct.childs.forEach((child) => {
-          let child_DOMtemplate = new DOMTemplate(child);
-          context.template.append(child_DOMtemplate.template);
-          context.childs.push(child_DOMtemplate);
+      let getChilds = (struct) => {
+        if (struct.template instanceof DOMTemplate) {
+          return struct.template.templateStruct.childs;
+        }
+        let aux = [];
+        if (struct.childs) {
+          struct.childs.forEach((child) => {
+            aux.push(new DOMTemplate(child));
+          });
+        }
+        return aux;
+      };
+
+      context.template = getTemplate(struct);
+      context.className = getClassName(struct);
+      context.tagName = getTagName(struct);
+      context.innerHTML = getInnerHtml(struct);
+      context.id = getId(struct);
+      context.attributes = getAttributes(struct);
+      context.childs = getChilds(struct);
+
+      if (context.childs.length > 0) {
+        context.template.html("");
+        context.childs.forEach((child) => {
+          context.template.append(child.template);
         });
       }
 
