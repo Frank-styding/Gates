@@ -23,8 +23,7 @@ class DOMTemplate {
       template,
     }) => {
       if (tagName == undefined && template == undefined) return;
-
-      let $element = $(template ?? document.createElement(tagName));
+      let $element = $(template ?? `<${tagName}></${tagName}>`);
 
       if (className) {
         $element.addClass(className);

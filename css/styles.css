@@ -36,6 +36,7 @@ MENU
   background-color: #4b4b4b;
   border-left: 1px solid #808080;
   border: 1px solid gray;
+  /* user-select: none; */
 }
 .menu .option.selected {
   border-bottom: none !important;

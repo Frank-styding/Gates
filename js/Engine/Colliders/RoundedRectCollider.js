@@ -16,38 +16,26 @@ class RoundedRectCollider extends Collider {
       v = Matrix3x3.mulByVector(v, this.transform.getTransformMatrix(), 0);
     }
 
-    let a =
-      -this.width / 2 + this.radius <= v.x &&
-      v.x <= this.width / 2 - this.radius &&
-      -this.height / 2 <= v.y &&
-      v.y <= this.height / 2;
-
-    let b =
-      -this.width / 2 <= v.x &&
-      v.x <= this.width / 2 &&
-      -this.height / 2 + this.radius <= v.y &&
-      v.y <= this.height / 2 - this.radius;
-
-    let c =
+    return (
+      (-this.width / 2 + this.radius <= v.x &&
+        v.x <= this.width / 2 - this.radius &&
+        -this.height / 2 <= v.y &&
+        v.y <= this.height / 2) ||
+      (v.x <= this.width / 2 &&
+        -this.height / 2 + this.radius <= v.y &&
+        v.y <= this.height / 2 - this.radius) ||
       (this.width / 2 - this.radius - v.x) ** 2 +
         (this.height / 2 - this.radius - v.y) ** 2 <=
-      this.radius * this.radius;
-
-    let d =
+        this.radius * this.radius ||
       (-(this.width / 2 - this.radius) - v.x) ** 2 +
         (-(this.height / 2 - this.radius) - v.y) ** 2 <=
-      this.radius * this.radius;
-
-    let e =
+        this.radius * this.radius ||
       (-(this.width / 2 - this.radius) - v.x) ** 2 +
         (this.height / 2 - this.radius - v.y) ** 2 <=
-      this.radius * this.radius;
-
-    let f =
+        this.radius * this.radius ||
       (this.width / 2 - this.radius - v.x) ** 2 +
         (-(this.height / 2 - this.radius) - v.y) ** 2 <=
-      this.radius * this.radius;
-
-    return a || b || c || d || e || f;
+        this.radius * this.radius
+    );
   }
 }
