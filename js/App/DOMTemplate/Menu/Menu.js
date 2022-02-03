@@ -9,17 +9,19 @@ class DT_Menu extends DOMTemplate {
       })),
     });
     this.selectedOption = "";
-  }
-  _registerEvents() {
     this.childs.forEach((child) => {
-      child.template.click(() => {
+      child.template.on("click", () => {
         this.childs.forEach((child) => {
           child.template.removeClass("selected");
         });
         child.template.addClass("selected");
-        console.log(child);
         this.template.trigger("selected-option", [child.name]);
       });
     });
+
+    this.template.on("click", () => {
+      console.log("hola");
+    });
+    console.log($._data(this.childs[0].template[0], "events"));
   }
 }

@@ -1,21 +1,21 @@
 class DT_Component extends DOMTemplate {
   constructor(data) {
     super({
-      tagType: "div",
+      tagName: "div",
       className: "component",
       childs: [
         {
-          tagType: "div",
+          tagName: "div",
           className: "icon",
-          chidls: [
+          childs: [
             {
-              tagType: "div",
+              tagName: "div",
               className: `icon-${data.iconName}`,
             },
           ],
         },
         {
-          tagType: "div",
+          tagName: "div",
           className: "name",
           innerHTML: data.name,
         },

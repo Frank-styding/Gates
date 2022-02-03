@@ -90,12 +90,32 @@ let propertiesContainerData = [
     ],
   },
 ];
+let componentsContainerData = [
+  {
+    name: "nose",
+    iconName: "rect",
+    subComponents: [
+      {
+        name: "circle",
+        iconName: "circle",
+      },
+    ],
+  },
+];
 
 let menu = new DT_Menu(["components", "properties"]);
-
+let propertiesContainer = new DT_PropertiesContainer(propertiesContainerData);
+let componentsContainer = new DT_ComponentsContainer(componentsContainerData);
+/* let compoenentContainer = new DT_PropertiesContainer */
+/* menu.update(); */
+console.log("------");
+menu.createTemplateStruct(menu, true);
+/* menu.id = "hola"; */
+/* menu.update(); */
+//console.log(this.template, $._data(menu.childs[0].template[0], "events"));
 let panelContainer = new DT_PanelContainer([
   {
-    template: new DT_PropertiesContainer(propertiesContainerData),
+    template: componentsContainer,
   },
 ]);
 
@@ -118,10 +138,15 @@ let root = new DOMTemplate({
   ],
 });
 
-root.registerEvents();
-
+//menu.createTemplateStruct(menu);
 menu.template.on("selected-option", (event, a) => {
-  console.log("Hola", a);
+  if (a == "components") {
+    panelContainer.childs[0] = componentsContainer;
+  }
+  if (a == "properties") {
+    panelContainer.childs[0] = propertiesContainer;
+  }
+  panelContainer.createTemplateStruct(panelContainer);
 });
 //console.log(root);
 /* let propertiesContainer = new DT_PropertiesContainer([

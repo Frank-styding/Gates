@@ -93,6 +93,15 @@ let DIRECTORY = {
                 "SubProperty.js",
               ],
             },
+            {
+              name: "Components",
+              files: [
+                "Component.js",
+                "ComponentContainer.js",
+                "Components.js",
+                "ComponentsContainer.js",
+              ],
+            },
           ],
         },
       ],
