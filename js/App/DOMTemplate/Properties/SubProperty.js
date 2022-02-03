@@ -12,7 +12,9 @@ class DT_SubProperty extends DOMTemplate {
         {
           tagName: "div",
           className: "inputs",
-          childs: data.inputs.map((input) => new DT_InputContainer(input)),
+          childs: data.inputs.map((input) => ({
+            template: new DT_InputContainer(input),
+          })),
         },
       ],
     });

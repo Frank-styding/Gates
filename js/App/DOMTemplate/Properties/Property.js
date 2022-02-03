@@ -12,9 +12,9 @@ class DT_Property extends DOMTemplate {
         {
           tagName: "div",
           className: "subProperties-container",
-          childs: data.subProperties.map(
-            (subPorperty) => new DT_SubProperty(subPorperty)
-          ),
+          childs: data.subProperties.map((subPorperty) => ({
+            template: new DT_SubProperty(subPorperty),
+          })),
         },
       ],
     });

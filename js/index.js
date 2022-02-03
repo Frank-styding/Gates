@@ -1,104 +1,103 @@
+let propertiesContainerData = [
+  {
+    title: "Transform",
+    subProperties: [
+      {
+        name: "Scale",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Translate",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Rotate",
+        inputs: [
+          {
+            name: "angle",
+            type: "text",
+            id: "scale-x",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    title: "Style",
+    subProperties: [
+      {
+        name: "Scale",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Translate",
+        inputs: [
+          {
+            name: "x",
+            type: "text",
+            id: "scale-x",
+          },
+          {
+            name: "y",
+            type: "text",
+            id: "scale-y",
+          },
+        ],
+      },
+      {
+        name: "Rotate",
+        inputs: [
+          {
+            name: "angle",
+            type: "text",
+            id: "scale-x",
+          },
+        ],
+      },
+    ],
+  },
+];
+
 let menu = new DT_Menu(["components", "properties"]);
+
 let panelContainer = new DT_PanelContainer([
   {
-    template: new DT_PropertiesContainer([
-      {
-        title: "Transform",
-        subProperties: [
-          {
-            name: "Scale",
-            inputs: [
-              {
-                name: "x",
-                type: "text",
-                id: "scale-x",
-              },
-              {
-                name: "y",
-                type: "text",
-                id: "scale-y",
-              },
-            ],
-          },
-          {
-            name: "Translate",
-            inputs: [
-              {
-                name: "x",
-                type: "text",
-                id: "scale-x",
-              },
-              {
-                name: "y",
-                type: "text",
-                id: "scale-y",
-              },
-            ],
-          },
-          {
-            name: "Rotate",
-            inputs: [
-              {
-                name: "angle",
-                type: "text",
-                id: "scale-x",
-              },
-            ],
-          },
-        ],
-      },
-      {
-        title: "Style",
-        subProperties: [
-          {
-            name: "Scale",
-            inputs: [
-              {
-                name: "x",
-                type: "text",
-                id: "scale-x",
-              },
-              {
-                name: "y",
-                type: "text",
-                id: "scale-y",
-              },
-            ],
-          },
-          {
-            name: "Translate",
-            inputs: [
-              {
-                name: "x",
-                type: "text",
-                id: "scale-x",
-              },
-              {
-                name: "y",
-                type: "text",
-                id: "scale-y",
-              },
-            ],
-          },
-          {
-            name: "Rotate",
-            inputs: [
-              {
-                name: "angle",
-                type: "text",
-                id: "scale-x",
-              },
-            ],
-          },
-        ],
-      },
-    ]),
+    template: new DT_PropertiesContainer(propertiesContainerData),
   },
 ]);
-
-menu.template.on("click", (event) => {
-  console.log("hola");
-});
 
 let root = new DOMTemplate({
   template: $("#root")[0],
@@ -119,6 +118,12 @@ let root = new DOMTemplate({
   ],
 });
 
+root.registerEvents();
+
+menu.template.on("selected-option", (event, a) => {
+  console.log("Hola", a);
+});
+//console.log(root);
 /* let propertiesContainer = new DT_PropertiesContainer([
   {
     title: "Transform",

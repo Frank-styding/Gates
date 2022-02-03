@@ -1,7 +1,6 @@
 class DOMTemplate {
   constructor(struct) {
-    this.templateStruct = {};
-    this.template = this.createTemplate(struct);
+    this.createTemplate(struct);
   }
 
   isDOMElement(o) {
@@ -13,6 +12,15 @@ class DOMTemplate {
           o.nodeType === 1 &&
           typeof o.nodeName === "string";
   }
+
+  _registerEvents() {}
+  registerEvents() {
+    this._registerEvents();
+    this.childs.forEach((child) => {
+      child.registerEvents();
+    });
+  }
+
   createTemplate(struct) {
     let createTag = ({
       tagName,
@@ -47,78 +55,34 @@ class DOMTemplate {
     };
 
     let createTemplateStruct = (struct, context = {}) => {
-      let getTemplate = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.template;
-        }
-        if (this.isDOMElement(struct.template)) {
-          return createTag({ template: struct.template, ...struct });
-        }
-        return createTag(struct);
-      };
-      let getClassName = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.templateStruct.className;
-        }
-        if (this.isDOMElement(struct.template)) {
-          return struct.template.className;
-        }
-        return struct.className;
-      };
-      let getId = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.templateStruct.id;
-        }
-        if (this.isDOMElement(struct.template)) {
-          return struct.template.id;
-        }
-        return struct.id;
-      };
-      let getTagName = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.templateStruct.tagName;
-        }
-        if (this.isDOMElement(struct.template)) {
-          return struct.template.tagName.toLowerCase();
-        }
-        return struct.tagName;
-      };
-      let getInnerHtml = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.templateStruct.innerHTML;
-        }
-        if (this.isDOMElement(struct.template)) {
-          return struct.template.innerHTML;
-        }
-        return struct.innerHTML;
-      };
-      let getAttributes = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.templateStruct.attributes;
-        }
-        return struct.attributes;
-      };
+      context.childs = [];
 
-      let getChilds = (struct) => {
-        if (struct.template instanceof DOMTemplate) {
-          return struct.template.templateStruct.childs;
-        }
-        let aux = [];
+      if (struct.template instanceof DOMTemplate) {
+        let template = struct.template;
+        context.template = template.template;
+        context.id = template.id;
+        context.className = template.className;
+        context.tagName = template.tagName;
+        context.innerHTML = template.innerHTML;
+        context.attributes = template.attributes;
+        context.childs = template.childs;
+      } else {
+        context.template = createTag(struct);
+        context.id = struct.id;
+        context.className = struct.className;
+        context.tagName = struct.tagName;
+        context.innerHTML = struct.innerHTML;
+        context.attributes = struct.attributes;
+
         if (struct.childs) {
-          struct.childs.forEach((child) => {
-            aux.push(new DOMTemplate(child));
+          context.childs = struct.childs.map((child) => {
+            if (child.template instanceof DOMTemplate) {
+              return child.template;
+            }
+            return new DOMTemplate(child);
           });
         }
-        return aux;
-      };
-
-      context.template = getTemplate(struct);
-      context.className = getClassName(struct);
-      context.tagName = getTagName(struct);
-      context.innerHTML = getInnerHtml(struct);
-      context.id = getId(struct);
-      context.attributes = getAttributes(struct);
-      context.childs = getChilds(struct);
+      }
 
       if (context.childs.length > 0) {
         context.template.html("");
@@ -129,8 +93,6 @@ class DOMTemplate {
 
       return context;
     };
-
-    let context = createTemplateStruct(struct, this.templateStruct);
-    return context.template;
+    createTemplateStruct(struct, this);
   }
 }

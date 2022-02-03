@@ -6,4 +6,7 @@ class DT_Panel extends DOMTemplate {
       childs: childs,
     });
   }
+  _registerEvents() {
+    console.log("hola");
+  }
 }

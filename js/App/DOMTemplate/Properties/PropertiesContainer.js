@@ -3,7 +3,7 @@ class DT_PropertiesContainer extends DOMTemplate {
     super({
       tagName: "div",
       className: "properties-container",
-      childs: data.map((property) => new DT_Property(property)),
+      childs: data.map((property) => ({ template: new DT_Property(property) })),
     });
     this.data = data;
   }
