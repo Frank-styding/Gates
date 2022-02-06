@@ -99,6 +99,18 @@ let componentsContainerData = [
         name: "circle",
         iconName: "circle",
       },
+      {
+        name: "range",
+        iconName: "range",
+      },
+      {
+        name: "component",
+        iconName: "component",
+      },
+      {
+        name: "switch",
+        iconName: "switch",
+      },
     ],
   },
 ];
@@ -106,13 +118,9 @@ let componentsContainerData = [
 let menu = new DT_Menu(["components", "properties"]);
 let propertiesContainer = new DT_PropertiesContainer(propertiesContainerData);
 let componentsContainer = new DT_ComponentsContainer(componentsContainerData);
-/* let compoenentContainer = new DT_PropertiesContainer */
-/* menu.update(); */
-console.log("------");
+
 menu.createTemplateStruct(menu, true);
-/* menu.id = "hola"; */
-/* menu.update(); */
-//console.log(this.template, $._data(menu.childs[0].template[0], "events"));
+
 let panelContainer = new DT_PanelContainer([
   {
     template: componentsContainer,
@@ -138,7 +146,6 @@ let root = new DOMTemplate({
   ],
 });
 
-//menu.createTemplateStruct(menu);
 menu.template.on("selected-option", (event, a) => {
   if (a == "components") {
     panelContainer.childs[0] = componentsContainer;
@@ -148,153 +155,58 @@ menu.template.on("selected-option", (event, a) => {
   }
   panelContainer.createTemplateStruct(panelContainer);
 });
-//console.log(root);
-/* let propertiesContainer = new DT_PropertiesContainer([
-  {
-    title: "Transform",
-    subProperties: [
-      {
-        name: "Scale",
-        inputs: [
-          {
-            name: "x",
-            type: "text",
-            id: "scale-x",
-          },
-          {
-            name: "y",
-            type: "text",
-            id: "scale-y",
-          },
-        ],
-      },
-      {
-        name: "Translate",
-        inputs: [
-          {
-            name: "x",
-            type: "text",
-            id: "scale-x",
-          },
-          {
-            name: "y",
-            type: "text",
-            id: "scale-y",
-          },
-        ],
-      },
-      {
-        name: "Rotate",
-        inputs: [
-          {
-            name: "angle",
-            type: "text",
-            id: "scale-x",
-          },
-        ],
-      },
-    ],
-  },
-  {
-    title: "Style",
-    subProperties: [
-      {
-        name: "Scale",
-        inputs: [
-          {
-            name: "x",
-            type: "text",
-            id: "scale-x",
-          },
-          {
-            name: "y",
-            type: "text",
-            id: "scale-y",
-          },
-        ],
-      },
-      {
-        name: "Translate",
-        inputs: [
-          {
-            name: "x",
-            type: "text",
-            id: "scale-x",
-          },
-          {
-            name: "y",
-            type: "text",
-            id: "scale-y",
-          },
-        ],
-      },
-      {
-        name: "Rotate",
-        inputs: [
-          {
-            name: "angle",
-            type: "text",
-            id: "scale-x",
-          },
-        ],
-      },
-    ],
-  },
-]);
 
-let panel = new DT_Panel();
-let menu = new DT_Menu(["Components", "Properies"]);
+let { width, height } = $("#canvas-container")[0].getBoundingClientRect();
 
-$(menu.getTemplate()).click(() => {
-  panelContainer.getTemplate().html("");
-  if (menu.selectedOption == "Components") {
-    panelContainer.getTemplate().append(componentsContainer.getTemplate());
-  } else {
-    panelContainer.getTemplate().append(propertiesContainer.getTemplate());
-  }
+let $canvas = $("#canvas")[0];
+let display = new Display({
+  width: width,
+  height: height,
+  canvas: $canvas,
 });
 
-let panelContainer = new DT_PanelContainer();
+let controller = new InputController($canvas);
 
-let componentsContainer = new DT_ComponentsContainer([
-  {
-    name: "Rect",
-    iconName: "rect",
-    subComponents: [
-      {
-        name: "Circle",
-        iconName: "circle",
-        subComponents: [
-          {
-            name: "Component",
-            iconName: "component",
-            subComponents: [],
-          },
-        ],
-      },
-      {
-        name: "Circle",
-        iconName: "rect",
-        subComponents: [
-          {
-            name: "Component",
-            iconName: "component",
-            subComponents: [],
-          },
-        ],
-      },
-    ],
-  },
-]); */
-/* panelContainer.addChild(propertiesContainer); */
+let scene = new C_Scene(width, height);
+let circle = new C_Circle(50);
+let circle1 = new C_Circle(20);
 
-/* panelContainer.getTemplate().append(componentsContainer.getTemplate());
+circle.transform.setValue((transform) => {
+  transform.model.translate(200, 200);
+  return transform;
+});
 
-panel.addChild(menu);
-panel.addChild(panelContainer);
+circle1.backgroudStyle.setValue((backgroudStyle) => {
+  backgroudStyle.color = new Color(255, 0, 0);
+  return backgroudStyle;
+});
 
-$("#root").append(panel.getTemplate());
- */
+circle.hasMouseInteraction = false;
+circle.addChild(circle1);
+
+scene.addChild(circle);
+
+controller.setMouseInteraction(scene);
+
+function loop() {
+  display.clear();
+  /* 
+  circle.update(); */
+  /* display.renderComponent(circle); */
+  scene.update();
+  //display.renderCollider(circle);
+  display.renderComponent(scene);
+  /*  display.rect(
+    100,
+    100,
+    100,
+    100,
+    new DisplayStyle({ fill: true, color: new Color(255, 0, 0) })
+  ); */
+
+  requestAnimationFrame(loop);
+}
+loop();
 /* let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
 
 async function load() {

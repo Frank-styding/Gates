@@ -3,67 +3,72 @@ let DIRECTORY = {
   files: ["index.js"],
   subDirectories: [
     {
-      name: "Engine",
+      name: "Modules",
       subDirectories: [
         {
-          name: "Thread",
-          files: ["Thread.js"],
-        },
-        {
-          name: "Math",
-          files: ["Vector2.js", "Matrix3x3.js", "Transform.js"],
-        },
-        {
-          name: "Colliders",
-          files: [
-            "Collider.js",
-            "CircleCollider.js",
-            "PathCollider.js",
-            "RectCollider.js",
-            "RoundedRectCollider.js",
-          ],
-        },
-        { name: "State", files: ["State.js"] },
-        {
-          name: "Controller",
-          files: [
-            "KeyboardController.js",
-            "MouseController.js",
-            "Controller.js",
-          ],
-        },
-        {
-          name: "Display",
-          files: [
-            "Color.js",
-            "Shadow.js",
-            "Pattern.js",
-            "LineStyle.js",
-            "LinearGradient.js",
-            "RadialGradient.js",
-            "Compositing.js",
-            "TextStyle.js",
-            "DisplayStyle.js",
-            "Display.js",
-          ],
-        },
-        {
-          name: "Components",
-          files: ["Component.js"],
-        },
-      ],
-    },
-    {
-      name: "App",
-      files: ["App.js"],
-      subDirectories: [
-        {
-          name: "Components",
-          files: ["Conection.js", "BoxConections.js"],
+          name: "Engine",
           subDirectories: [
             {
-              name: "shapes",
-              files: ["Circle.js", "RoundedRect.js"],
+              name: "State",
+              files: ["State.js"],
+            },
+            {
+              name: "Math",
+              files: ["Vector2.js", "Matrix3x3.js", "Transform.js"],
+            },
+            {
+              name: "Controller",
+              files: [
+                "KeyboardController.js",
+                "MouseController.js",
+                "InputController.js",
+              ],
+            },
+            {
+              name: "Display",
+              files: ["Display.js"],
+              subDirectories: [
+                {
+                  name: "DisplayStyle",
+                  files: [
+                    "Color.js",
+                    "Compositing.js",
+                    "LineStyle.js",
+                    "LinearGradient.js",
+                    "RadialGradient.js",
+                    "Shadow.js",
+                    "TextStyle.js",
+                    "DisplayStyle.js",
+                  ],
+                },
+              ],
+            },
+            {
+              name: "Colliders",
+              files: [
+                "Collider.js",
+                "CircleCollider.js",
+                "PathCollider.js",
+                "RectCollider.js",
+                "RoundedRectCollider.js",
+              ],
+            },
+            {
+              name: "Components",
+              files: ["Component.js"],
+              firstFiles: true,
+              subDirectories: [
+                {
+                  name: "UI",
+                  files: ["Scene.js", "Conection.js", "BoxConections.js"],
+                  subDirectories: [
+                    {
+                      name: "Shapes",
+                      files: ["Circle.js", "RoundedRect.js"],
+                    },
+                  ],
+                },
+              ],
             },
           ],
         },
@@ -73,10 +78,6 @@ let DIRECTORY = {
           firstFiles: true,
           subDirectories: [
             {
-              name: "CanvasContainer",
-              files: ["CanvasContainer.js"],
-            },
-            {
               name: "Panel",
               files: ["Panel.js", "PanelContainer.js"],
             },
@@ -85,21 +86,25 @@ let DIRECTORY = {
               files: ["Menu.js", "MenuOption.js"],
             },
             {
-              name: "Properties",
-              files: [
-                "Property.js",
-                "InputContainer.js",
-                "PropertiesContainer.js",
-                "SubProperty.js",
-              ],
-            },
-            {
               name: "Components",
               files: [
                 "Component.js",
-                "ComponentContainer.js",
-                "Components.js",
                 "ComponentsContainer.js",
+                "Components.js",
+                "ComponentContainer.js",
+              ],
+            },
+            {
+              name: "CanvasContainer",
+              files: ["CanvasContainer.js"],
+            },
+            {
+              name: "Properties",
+              files: [
+                "InputContainer.js",
+                "Property.js",
+                "SubProperty.js",
+                "PropertiesContainer.js",
               ],
             },
           ],
