@@ -50,11 +50,20 @@ class DT_Component extends DOMTemplate {
       ],
     });
     this.data = data;
+
     this.template.find(".btn-container.add").on("click", () => {
-      this.template.trigger("_add");
+      this.events.trigger("add");
     });
+
     this.template.find(".btn-container.remove").on("click", () => {
-      this.template.trigger("_remove");
+      this.events.trigger("remove");
+    });
+
+    this.template.on("click", () => {
+      this.parents
+        .filter((item) => item.className == "components-container")[0]
+        .events.trigger("selected", [this]);
+      this.events.trigger("selected");
     });
   }
 }

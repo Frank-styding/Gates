@@ -1,6 +1,10 @@
 class DOMTemplate {
   constructor(struct) {
+    this.parents = [];
+    this.parent = undefined;
+
     this.createTemplate(struct);
+    this.events = new EventHandler();
   }
 
   createTemplate(struct) {
@@ -32,7 +36,7 @@ class DOMTemplate {
     return $element;
   }
 
-  createTemplateStruct(struct, nose = true) {
+  createTemplateStruct(struct) {
     let isDomTemplate = struct.template instanceof DOMTemplate;
     let template = isDomTemplate ? struct.template : struct;
 
@@ -48,12 +52,20 @@ class DOMTemplate {
 
     this.childs = (template.childs || []).map((child) => {
       if (child instanceof DOMTemplate) {
+        this.setParents(child);
+
         return child;
       }
       if (child.template instanceof DOMTemplate) {
+        this.setParents(child.template);
         return child.template;
       }
-      return new DOMTemplate(child);
+
+      let aux = new DOMTemplate(child);
+
+      this.setParents(aux);
+
+      return aux;
     });
 
     if (this.childs.length > 0) {
@@ -64,5 +76,22 @@ class DOMTemplate {
     }
 
     return this;
+  }
+  setParents(item) {
+    item.parent = this;
+
+    let getChilds = (item) => {
+      let childs = [item];
+      if (item.childs.length > 0) {
+        item.childs.forEach((item) => {
+          childs.push(...getChilds(item));
+        });
+      }
+      return childs;
+    };
+
+    let childs = [];
+    item.childs.forEach((child) => childs.push(...getChilds(child)));
+    childs.forEach((child) => child.parents.push(this));
   }
 }

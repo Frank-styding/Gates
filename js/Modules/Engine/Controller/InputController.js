@@ -53,25 +53,25 @@ class InputController {
     this.mouse.events.down.push((e) => {
       event = createContext(e);
 
-      selectedComponents.forEach((selectedComponent) =>
-        selectedComponent.mouseDown(e)
-      );
+      selectedComponents.forEach((selectedComponent) => {
+        selectedComponent.events.trigger("mouseDown", [e]);
+      });
     });
 
     this.mouse.events.up.push((e) => {
       event = createContext(e);
 
-      selectedComponents.forEach((selectedComponent) =>
-        selectedComponent.mouseUp(e)
-      );
+      selectedComponents.forEach((selectedComponent) => {
+        selectedComponent.events.trigger("mouseUp", [e]);
+      });
     });
 
     this.mouse.events.move.push((e) => {
       event = createContext(e);
 
-      selectedComponents.forEach((selectedComponent) =>
-        selectedComponent.mouseMove(e)
-      );
+      selectedComponents.forEach((selectedComponent) => {
+        selectedComponent.events.trigger("mouseMove", [e]);
+      });
     });
 
     let equal = (a, b) => a.some((item) => !b.some((item1) => item == item1));
@@ -89,13 +89,13 @@ class InputController {
       ) {
         event = createContext(event);
 
-        lastSelectedComponents.forEach((selectedComponent) =>
-          selectedComponent.mouseLeave(event)
-        );
+        lastSelectedComponents.forEach((selectedComponent) => {
+          selectedComponent.events.trigger("mouseLeave", [event]);
+        });
 
-        selectedComponents.forEach((selectedComponent) =>
-          selectedComponent.mouseOver(event)
-        );
+        selectedComponents.forEach((selectedComponent) => {
+          selectedComponent.events.trigger("mouseOver", [event]);
+        });
 
         lastSelectedComponents = selectedComponents;
         selectedComponents = [];

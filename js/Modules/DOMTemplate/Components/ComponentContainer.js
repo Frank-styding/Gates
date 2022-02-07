@@ -16,10 +16,39 @@ class DT_ComponentContainer extends DOMTemplate {
         },
       ],
     });
+
+    let getParent = () => {
+      if (this.parent === undefined) return undefined;
+      if (this.parent.className === "subComponents") return this.parent.parent;
+      return this.parent;
+    };
+
     this.data = data;
-    this.childs[0].template.on("_remove", () => {
+    this.isRemove = false;
+
+    this.childs[0].events.on("remove", () => {
+      this.isRemove = true;
       this.template.remove();
       this.childs = [];
+
+      let parent = getParent();
+      if (parent) {
+        parent.events.trigger("update-data");
+      }
+    });
+
+    this.childs[0].events.on("selected", () => {});
+
+    this.events.on("update-data", () => {
+      this.childs[1].childs = this.childs[1].childs.filter(
+        (item) => item.isRemove === false
+      );
+      this.data.subComponents = this.childs[1].childs.map((item) => item.data);
+
+      let parent = getParent();
+      if (parent) {
+        parent.events.trigger("update-data");
+      }
     });
   }
 }

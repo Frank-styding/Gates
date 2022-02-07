@@ -110,6 +110,40 @@ let componentsContainerData = [
       {
         name: "switch",
         iconName: "switch",
+        subComponents: [
+          {
+            name: "nose",
+            iconName: "rect",
+          },
+        ],
+      },
+    ],
+  },
+  {
+    name: "nose",
+    iconName: "rect",
+    subComponents: [
+      {
+        name: "circle",
+        iconName: "circle",
+      },
+      {
+        name: "range",
+        iconName: "range",
+      },
+      {
+        name: "component",
+        iconName: "component",
+      },
+      {
+        name: "switch",
+        iconName: "switch",
+        subComponents: [
+          {
+            name: "nose",
+            iconName: "rect",
+          },
+        ],
       },
     ],
   },
@@ -119,7 +153,13 @@ let menu = new DT_Menu(["components", "properties"]);
 let propertiesContainer = new DT_PropertiesContainer(propertiesContainerData);
 let componentsContainer = new DT_ComponentsContainer(componentsContainerData);
 
-menu.createTemplateStruct(menu, true);
+componentsContainer.events.on("update-data", (data) => {
+  console.log(data);
+});
+
+componentsContainer.events.on("selected", (item) => {
+  console.log(item);
+});
 
 let panelContainer = new DT_PanelContainer([
   {
@@ -146,7 +186,7 @@ let root = new DOMTemplate({
   ],
 });
 
-menu.template.on("selected-option", (event, a) => {
+menu.events.on("selected-option", (a) => {
   if (a == "components") {
     panelContainer.childs[0] = componentsContainer;
   }
@@ -181,7 +221,7 @@ circle1.backgroudStyle.setValue((backgroudStyle) => {
   return backgroudStyle;
 });
 
-circle.hasMouseInteraction = false;
+//circle.hasMouseInteraction = false;
 circle.addChild(circle1);
 
 scene.addChild(circle);

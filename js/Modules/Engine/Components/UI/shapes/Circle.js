@@ -10,6 +10,11 @@ class C_Circle extends Component {
       })
     );
     this.setCollider(new CircleCollider(radius));
+
+    this.events.on("mouseDown", (event) => {
+      console.log("Event", event, "from", this);
+    });
+
     this.initUpdateFuncs();
     this.render();
   }
@@ -26,9 +31,7 @@ class C_Circle extends Component {
       this.render();
     });
   }
-  _mouseDown() {
-    console.log("hola");
-  }
+
   render() {
     this.display.clear();
     this.display.circle(

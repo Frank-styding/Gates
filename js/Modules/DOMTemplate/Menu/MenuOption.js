@@ -7,8 +7,9 @@ class DT_MenuOption extends DOMTemplate {
     });
     this.name = name;
     this.selected = selected;
+
     this.template.on("click", () => {
-      console.log("hola");
+      this.events.trigger("click", [name, this]);
     });
   }
 }

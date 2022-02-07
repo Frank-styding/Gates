@@ -6,6 +6,10 @@ let DIRECTORY = {
       name: "Modules",
       subDirectories: [
         {
+          name: "EventHandler",
+          files: ["EventHandler.js"],
+        },
+        {
           name: "Engine",
           subDirectories: [
             {
