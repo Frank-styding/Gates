@@ -77,6 +77,7 @@ class DOMTemplate {
 
     return this;
   }
+
   setParents(item) {
     item.parent = this;
 
