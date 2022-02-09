@@ -24,6 +24,9 @@
 .component > .container .expand {
   border-radius: 3px;
 }
+.component > .container .expand.hidden > .icon-expand {
+  background-color: transparent;
+}
 
 .component > .container .expand:hover {
   background-color: #363636;

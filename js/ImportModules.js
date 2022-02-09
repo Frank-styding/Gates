@@ -7,7 +7,7 @@ async function addScript(src) {
   }
 
   await new Promise((resolve) => {
-    setTimeout(() => resolve(), 1);
+    setTimeout(() => resolve(), 2);
   });
   document.body.appendChild(script);
 }

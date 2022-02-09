@@ -353,6 +353,16 @@ let componentsContainer = new DT_ComponentsContainer([
             name: "nose",
             iconName: "rect",
           },
+          {
+            name: "nose",
+            iconName: "rect",
+            subComponents: [
+              {
+                name: "nose",
+                iconName: "component",
+              },
+            ],
+          },
         ],
       },
     ],

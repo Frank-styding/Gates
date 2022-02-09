@@ -38,11 +38,18 @@ class DT_Component extends DOMTemplate {
       ],
     });
 
-    this.childs[0].childs[2].template.on("click", () => {
+    this.childs[0].childs[2].template.on("click", (e) => {
+      e.stopPropagation();
       this.events.trigger("expand-click");
     });
     this.template.on("click", () => {
       this.events.trigger("click");
+    });
+    this.events.on("hidden-expand", () => {
+      this.childs[0].childs[2].template.addClass("hidden");
+    });
+    this.events.on("show-expand", () => {
+      this.childs[0].childs[2].template.removeClass("hidden");
     });
   }
 }

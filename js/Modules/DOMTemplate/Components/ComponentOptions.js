@@ -28,5 +28,15 @@ class DT_ComponentOptions extends DOMTemplate {
         },
       ],
     });
+
+    this.childs[0].template.on("click", () => {
+      this.events.trigger("add");
+    });
+    this.childs[1].template.on("click", () => {
+      this.events.trigger("properties");
+    });
+    this.childs[2].template.on("click", () => {
+      this.events.trigger("remove");
+    });
   }
 }
