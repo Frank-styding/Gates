@@ -1,0 +1,71 @@
+.icon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+.icon .icon-rect {
+  width: 20px;
+  height: 20px;
+  border-radius: 5px;
+  background-color: #c4c4c4;
+}
+.icon .icon-circle {
+  width: 20px;
+  height: 20px;
+  border-radius: 10px;
+  background-color: #c4c4c4;
+}
+.icon .icon-range {
+  width: 20px;
+  height: 15px;
+  border-radius: 3px;
+  background-color: #c4c4c4;
+  position: relative;
+}
+.icon .icon-range:after {
+  position: absolute;
+  content: "";
+  width: 5px;
+  height: 18px;
+  top: -1.5px;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.icon .icon-switch {
+  width: 20px;
+  height: 15px;
+  border-radius: 3px;
+  background-color: #c4c4c4;
+  position: relative;
+}
+.icon .icon-switch:after {
+  position: absolute;
+  content: "";
+  width: 8px;
+  height: 15px;
+  border-radius: 3px;
+  background-color: #ffffff;
+}
+.icon .icon-component {
+  width: 20px;
+  height: 20px;
+  background-color: #c4c4c4;
+  clip-path: polygon(25% 0%, 75% 0%, 100% 50%, 75% 100%, 25% 100%, 0% 50%);
+}
+.icon .icon-component:after {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transform: translate(50%, 50%);
+  background-color: #ffffff;
+}
+.icon .icon-expand {
+  width: 15px;
+  height: 15px;
+  clip-path: polygon(100% 0, 0 0, 50% 100%);
+  background-color: #c4c4c4;
+}

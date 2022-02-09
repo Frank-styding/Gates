@@ -1,4 +1,4 @@
-let propertiesContainerData = [
+/* let propertiesContainerData = [
   {
     title: "Transform",
     subProperties: [
@@ -219,34 +219,34 @@ circle.transform.setValue((transform) => {
 circle1.backgroudStyle.setValue((backgroudStyle) => {
   backgroudStyle.color = new Color(255, 0, 0);
   return backgroudStyle;
-});
+}); */
 
 //circle.hasMouseInteraction = false;
-circle.addChild(circle1);
+/* circle.addChild(circle1);
 
 scene.addChild(circle);
 
 controller.setMouseInteraction(scene);
-
-function loop() {
+ */
+/* function loop() {
   display.clear();
-  /* 
-  circle.update(); */
-  /* display.renderComponent(circle); */
+  
+  circle.update();
+  display.renderComponent(circle);
   scene.update();
-  //display.renderCollider(circle);
+  display.renderCollider(circle);
   display.renderComponent(scene);
-  /*  display.rect(
+   display.rect(
     100,
     100,
     100,
     100,
     new DisplayStyle({ fill: true, color: new Color(255, 0, 0) })
-  ); */
+  );
 
   requestAnimationFrame(loop);
-}
-loop();
+} */
+/* loop(); */
 /* let myFont = new FontFace("Roboto", "url(fonts/Roboto-Regular.ttf)");
 
 async function load() {
@@ -314,3 +314,63 @@ function app() {
   requestAnimationFrame(loop);
 }
  */
+let componentsContainer = new DT_ComponentsContainer([
+  {
+    name: "nose",
+    iconName: "rect",
+    subComponents: [
+      {
+        name: "hola",
+        iconName: "circle",
+      },
+      {
+        name: "hola",
+        iconName: "circle",
+      },
+      {
+        name: "hola",
+        iconName: "circle",
+      },
+    ],
+  },
+  {
+    name: "nose",
+    iconName: "rect",
+    subComponents: [
+      {
+        name: "hola",
+        iconName: "circle",
+      },
+      {
+        name: "hola",
+        iconName: "circle",
+      },
+      {
+        name: "hola",
+        iconName: "circle",
+        subComponents: [
+          {
+            name: "nose",
+            iconName: "rect",
+          },
+        ],
+      },
+    ],
+  },
+]);
+
+let root = new DOMTemplate({
+  template: $("#root")[0],
+  childs: [
+    {
+      template: new DT_CanvasContainer(),
+    },
+    {
+      template: new DT_Panel([
+        {
+          template: componentsContainer,
+        },
+      ]),
+    },
+  ],
+});

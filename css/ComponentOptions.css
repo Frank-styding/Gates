@@ -1,0 +1,14 @@
+.component-options {
+  display: flex;
+  justify-content: space-between;
+  height: 25px;
+}
+.component-options > .btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.component-options > .btn > svg {
+  width: 20px;
+  height: 15px;
+}

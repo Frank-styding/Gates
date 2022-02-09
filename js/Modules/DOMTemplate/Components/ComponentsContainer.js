@@ -3,12 +3,7 @@ class DT_ComponentsContainer extends DOMTemplate {
     super({
       tagName: "div",
       className: "components-container",
-      childs: [
-        {
-          template: new DT_Components(data),
-        },
-      ],
+      childs: data.map((component) => new DT_ComponentContainer(component)),
     });
-    this.data = data;
   }
 }

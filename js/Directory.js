@@ -83,33 +83,20 @@ let DIRECTORY = {
           subDirectories: [
             {
               name: "Panel",
-              files: ["Panel.js", "PanelContainer.js"],
-            },
-            {
-              name: "Menu",
-              files: ["Menu.js", "MenuOption.js"],
+              files: ["Panel.js"],
             },
             {
               name: "Components",
               files: [
                 "Component.js",
-                "ComponentsContainer.js",
-                "Components.js",
                 "ComponentContainer.js",
+                "ComponentOptions.js",
+                "ComponentsContainer.js",
               ],
             },
             {
               name: "CanvasContainer",
               files: ["CanvasContainer.js"],
-            },
-            {
-              name: "Properties",
-              files: [
-                "InputContainer.js",
-                "Property.js",
-                "SubProperty.js",
-                "PropertiesContainer.js",
-              ],
             },
           ],
         },

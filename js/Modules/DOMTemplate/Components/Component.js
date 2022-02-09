@@ -6,42 +6,30 @@ class DT_Component extends DOMTemplate {
       childs: [
         {
           tagName: "div",
-          className: "icon",
+          className: "container",
           childs: [
             {
               tagName: "div",
-              className: `icon-${data.iconName}`,
-            },
-          ],
-        },
-        {
-          tagName: "div",
-          className: "name",
-          innerHTML: data.name,
-        },
-        {
-          tagName: "div",
-          className: "controls",
-          childs: [
-            {
-              tagName: "div",
-              className: "btn-container add",
+              className: "icon",
               childs: [
                 {
                   tagName: "div",
-                  className: "btn add",
-                  innerHTML: "+",
+                  className: `icon-${data.iconName}`,
                 },
               ],
             },
             {
               tagName: "div",
-              className: "btn-container remove",
+              className: "name",
+              innerHTML: data.name,
+            },
+            {
+              tagName: "div",
+              className: "icon expand",
               childs: [
                 {
                   tagName: "div",
-                  className: "btn remove",
-                  innerHTML: "+",
+                  className: "icon-expand",
                 },
               ],
             },
@@ -49,21 +37,12 @@ class DT_Component extends DOMTemplate {
         },
       ],
     });
-    this.data = data;
 
-    this.template.find(".btn-container.add").on("click", () => {
-      this.events.trigger("add");
+    this.childs[0].childs[2].template.on("click", () => {
+      this.events.trigger("expand-click");
     });
-
-    this.template.find(".btn-container.remove").on("click", () => {
-      this.events.trigger("remove");
-    });
-
     this.template.on("click", () => {
-      this.parents
-        .filter((item) => item.className == "components-container")[0]
-        .events.trigger("selected", [this]);
-      this.events.trigger("selected");
+      this.events.trigger("click");
     });
   }
 }
